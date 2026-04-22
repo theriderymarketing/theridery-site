@@ -294,9 +294,9 @@
     .wb-packs { grid-template-columns:1fr !important; gap:32px !important; padding:0 12px !important; }
     .wb-packs-wrap { padding:28px 12px !important; }
     .wb-pack img { height:160px !important; }
-    /* Produits (sélection/ailes/planches) */
-    .tr-selection-grid { grid-template-columns:repeat(2,1fr) !important; gap:12px !important; }
+    /* Produits (sélection/ailes/planches) — scroll horizontal */
     .tr-selection-wrap { padding:24px 12px !important; }
+    .tr-selection-grid { gap:18px !important; }
     .tr-nav { width:36px !important; height:36px !important; }
     .tr-nav-prev { left:-4px !important; }
     .tr-nav-next { right:-4px !important; }
@@ -333,7 +333,6 @@
     #sim-band { top:58px !important; }
     .fcards-section { grid-template-columns:1fr !important; }
     .fcard { height:min(42vh,280px) !important; }
-    .tr-selection-grid { grid-template-columns:1fr !important; }
     .wb-packs { padding:0 8px !important; }
     .wb-pack { padding:18px 14px !important; }
     /* Avis 1 col */
@@ -910,21 +909,70 @@
   </div>
 </div>
 
-<!-- === HOMEPAGE PRODUITS STATIQUES — "Notre sélection du moment" === -->
+<!-- === HOMEPAGE PRODUITS — Carrousel épuré + Modal === -->
 <style>
   .tr-selection-wrap { max-width:1200px; margin:0 auto; padding:40px 24px 32px; font-family:'Jost',Montserrat,sans-serif; }
-  .tr-pcard-img { aspect-ratio:1/1; background:#f5f5f5; overflow:hidden; display:flex; align-items:center; justify-content:center; }
-  .tr-pcard-img img { max-width:75%; max-height:75%; object-fit:contain; }
-  .tr-pcard-body { padding:12px 14px 14px; }
-  .tr-pcard-name { font-size:12.5px !important; min-height:32px !important; }
-  .tr-pcard-price { font-size:12px !important; }
   .tr-selection-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
   .tr-selection-title { font-size:clamp(20px,2.2vw,26px); font-weight:400; color:#1d1d1d; margin:0; }
   .tr-selection-all { font-size:14px; color:#1d1d1d; text-decoration:underline; font-weight:500; }
   .tr-selection-stage { position:relative; }
-  .tr-selection-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  /* Scroll horizontal — articles sans fond, sans case */
+  .tr-selection-grid {
+    display:flex; gap:28px;
+    overflow-x:auto; overflow-y:visible;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    padding:8px 4px 20px;
+    scrollbar-width:none; -ms-overflow-style:none;
+  }
+  .tr-selection-grid::-webkit-scrollbar { display:none; }
+  /* Articles — pas de background, pas de border, juste photo + prix + nom */
+  .tr-pcard {
+    flex:0 0 240px; scroll-snap-align:start;
+    background:transparent; border:none; padding:0;
+    display:flex; flex-direction:column; align-items:center;
+    text-decoration:none; color:inherit; cursor:pointer;
+    font-family:inherit; text-align:center;
+    position:relative; transition:transform .25s ease;
+  }
+  .tr-pcard:hover { transform:translateY(-6px); }
+  .tr-pcard-badge {
+    position:absolute; top:6px; left:6px;
+    background:#F97316; color:#fff; font-size:10px;
+    font-weight:800; text-transform:uppercase; letter-spacing:0.06em;
+    padding:3px 8px; z-index:3;
+  }
+  .tr-pcard-badge.promo { background:#F97316; color:#fff; }
+  .tr-pcard-img {
+    width:100%; aspect-ratio:1/1; background:transparent;
+    overflow:hidden; display:flex; align-items:center; justify-content:center;
+  }
+  .tr-pcard-img img {
+    max-width:100%; max-height:100%; object-fit:contain;
+    transition:transform .3s ease;
+  }
+  .tr-pcard:hover .tr-pcard-img img { transform:scale(1.06); }
+  .tr-pcard-body {
+    padding:14px 6px 0; display:flex; flex-direction:column;
+    align-items:center; text-align:center; gap:6px; width:100%;
+  }
+  .tr-pcard-price {
+    color:#F97316; font-size:14px; font-weight:800;
+    letter-spacing:0.02em;
+  }
+  .tr-pcard-price .old {
+    color:#999; text-decoration:line-through; font-weight:500;
+    margin-left:6px; font-size:12px;
+  }
+  .tr-pcard-name {
+    font-weight:600; font-size:13px; color:#1d1d1d;
+    line-height:1.4; letter-spacing:0;
+    text-transform:none; min-height:auto;
+  }
+  .tr-pcard-cta { display:none !important; }
+  /* Flèches nav */
   .tr-nav {
-    position:absolute; top:50%; transform:translateY(-50%);
+    position:absolute; top:40%; transform:translateY(-50%);
     width:44px; height:44px; border-radius:50%;
     background:#fff; border:1.5px solid #1d1d1d;
     display:flex; align-items:center; justify-content:center;
@@ -932,27 +980,104 @@
     box-shadow:0 4px 14px rgba(0,0,0,0.08);
     transition:background .2s,color .2s,border-color .2s,transform .2s;
   }
-  .tr-nav:hover { background:#29D3B7; border-color:#29D3B7; transform:translateY(-50%) scale(1.06); }
+  .tr-nav:hover { background:#F97316; border-color:#F97316; transform:translateY(-50%) scale(1.06); }
   .tr-nav:hover svg { stroke:#fff; }
   .tr-nav svg { width:16px; height:16px; stroke:#1d1d1d; transition:stroke .2s; }
   .tr-nav-prev { left:-22px; }
   .tr-nav-next { right:-22px; }
   @media (max-width:1024px) { .tr-nav-prev { left:-12px; } .tr-nav-next { right:-12px; } }
-  @media (max-width:640px)  { .tr-nav { width:36px; height:36px; } .tr-nav-prev { left:-6px; } .tr-nav-next { right:-6px; } }
-  .tr-pcard { position:relative; background:#fff; border:2px solid #000; display:flex; flex-direction:column; text-decoration:none; color:inherit; transition:transform .25s ease, box-shadow .25s ease; }
-  .tr-pcard:hover { transform:translate(-4px,-4px); box-shadow:8px 8px 0 #29D3B7; }
-  .tr-pcard-badge { position:absolute; top:14px; left:0; background:#F97316; color:#fff; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; padding:4px 10px; z-index:3; }
-  .tr-pcard-badge.promo { background:#29D3B7; color:#fff; }
-  .tr-pcard-img { width:100%; aspect-ratio:1/1; background:#f5f5f5; overflow:hidden; display:flex; align-items:center; justify-content:center; }
-  .tr-pcard-img img { width:100%; height:100%; object-fit:contain; padding:14px; }
-  .tr-pcard-body { padding:16px 18px 18px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; }
-  .tr-pcard-price { color:#29D3B7; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:0.04em; }
-  .tr-pcard-price .old { color:#999; text-decoration:line-through; font-weight:500; margin-left:6px; font-size:12px; }
-  .tr-pcard-name { font-weight:800; font-size:14px; color:#1d1d1d; text-transform:uppercase; line-height:1.3; min-height:36px; }
-  .tr-pcard-cta { margin-top:4px; display:inline-block; padding:8px 14px; border:1.5px solid #29D3B7; color:#29D3B7; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; transition:background .2s,color .2s; }
-  .tr-pcard:hover .tr-pcard-cta { background:#29D3B7; color:#fff; }
-  @media (max-width:1024px) { .tr-selection-grid { grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:520px)  { .tr-selection-grid { grid-template-columns:1fr; } }
+  @media (max-width:640px)  {
+    .tr-pcard { flex:0 0 200px; }
+    .tr-nav { width:36px; height:36px; }
+    .tr-nav-prev { left:-6px; } .tr-nav-next { right:-6px; }
+  }
+  @media (max-width:420px) { .tr-pcard { flex:0 0 170px; } }
+
+  /* === MODAL PRODUIT === */
+  .tr-modal-overlay {
+    position:fixed; inset:0; background:rgba(0,0,0,0.72);
+    display:none; align-items:center; justify-content:center;
+    z-index:999999; padding:20px;
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    font-family:'Jost',Montserrat,sans-serif;
+  }
+  .tr-modal-overlay.open { display:flex; animation:trFade .2s ease; }
+  @keyframes trFade { from{opacity:0} to{opacity:1} }
+  .tr-modal {
+    background:#fff; max-width:920px; width:100%;
+    max-height:90vh; overflow-y:auto;
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:0; position:relative;
+    animation:trModalIn .28s cubic-bezier(.22,.9,.34,1);
+  }
+  @keyframes trModalIn {
+    from { opacity:0; transform:translateY(20px) scale(0.98); }
+    to   { opacity:1; transform:translateY(0) scale(1); }
+  }
+  .tr-modal-close {
+    position:absolute; top:16px; right:16px; z-index:4;
+    width:38px; height:38px; border-radius:50%;
+    background:#fff; border:1.5px solid #1d1d1d;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:18px; color:#1d1d1d;
+    transition:all .2s;
+  }
+  .tr-modal-close:hover { background:#F97316; border-color:#F97316; color:#fff; }
+  .tr-modal-img {
+    aspect-ratio:1/1; background:#f7f7f7;
+    display:flex; align-items:center; justify-content:center;
+    padding:40px;
+  }
+  .tr-modal-img img { max-width:100%; max-height:100%; object-fit:contain; }
+  .tr-modal-body {
+    padding:44px 36px; display:flex; flex-direction:column;
+    justify-content:center; gap:16px;
+  }
+  .tr-modal-badge {
+    display:inline-block; align-self:flex-start;
+    background:#F97316; color:#fff; font-size:11px;
+    font-weight:800; text-transform:uppercase; letter-spacing:0.08em;
+    padding:4px 10px;
+  }
+  .tr-modal-name {
+    font-size:22px; font-weight:800;
+    text-transform:uppercase; color:#1d1d1d;
+    line-height:1.25; margin:0;
+  }
+  .tr-modal-price {
+    font-size:22px; color:#F97316; font-weight:800;
+    display:flex; align-items:baseline; gap:12px;
+  }
+  .tr-modal-price .old {
+    color:#999; text-decoration:line-through;
+    font-weight:500; font-size:15px;
+  }
+  .tr-modal-desc {
+    font-size:14px; color:#555; line-height:1.7; margin:0;
+  }
+  .tr-modal-actions {
+    display:flex; flex-direction:column; gap:10px; margin-top:14px;
+  }
+  .tr-modal-btn {
+    display:block; text-align:center;
+    padding:14px 18px; font-size:13px; font-weight:800;
+    text-transform:uppercase; letter-spacing:0.08em;
+    text-decoration:none; transition:all .2s;
+    cursor:pointer; border:none; font-family:inherit;
+  }
+  .tr-modal-btn.primary { background:#1d1d1d; color:#fff; }
+  .tr-modal-btn.primary:hover { background:#F97316; }
+  .tr-modal-btn.secondary {
+    background:transparent; color:#1d1d1d; border:1.5px solid #1d1d1d;
+  }
+  .tr-modal-btn.secondary:hover { background:#1d1d1d; color:#fff; }
+  @media (max-width:720px) {
+    .tr-modal { grid-template-columns:1fr; max-height:95vh; }
+    .tr-modal-img { aspect-ratio:16/10; padding:24px; }
+    .tr-modal-body { padding:28px 22px 32px; }
+    .tr-modal-name { font-size:18px; }
+    .tr-modal-price { font-size:20px; }
+  }
 </style>
 
 <div class="tr-selection-wrap">
@@ -966,40 +1091,54 @@
   </button>
   <div class="tr-selection-grid">
 
-    <a class="tr-pcard" href="https://theridery.com/collections/notre-selection-du-moement/products/f-one-rocket-wing-asc-53-75l-comme-neuf">
+    <a class="tr-pcard" href="https://theridery.com/collections/notre-selection-du-moement/products/f-one-rocket-wing-asc-53-75l-comme-neuf"
+       data-prod-title="F-One Rocket Wing ASC 75L/90L/110L/130L 2025"
+       data-prod-price="à partir de €849,00"
+       data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/planche-f-one-rocket-wing-asc-2025.webp?v=1745393311&width=900"
+       data-prod-desc="La planche performance signature F-One. Construction ASC ultra-rigide et légère, déclinée en 4 volumes (75L, 90L, 110L, 130L) pour s'adapter à tous les gabarits et niveaux, du débutant au confirmé. Le bon choix pour progresser vite sur Marseille.">
       <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/planche-f-one-rocket-wing-asc-2025.webp?v=1745393311&width=600" alt="F-One Rocket Wing ASC 75L/90L/110L/130L 2025" loading="lazy"></div>
       <div class="tr-pcard-body">
         <div class="tr-pcard-price">à partir de €849,00</div>
         <div class="tr-pcard-name">F-One Rocket Wing ASC 75L/90L/110L/130L 2025</div>
-        <div class="tr-pcard-cta">Acheter maintenant</div>
       </div>
     </a>
 
-    <a class="tr-pcard" href="https://theridery.com/collections/notre-selection-du-moement/products/neilpryde-firefly-2025-neuf">
+    <a class="tr-pcard" href="https://theridery.com/collections/notre-selection-du-moement/products/neilpryde-firefly-2025-neuf"
+       data-prod-title="NeilPryde Firefly 2025 — Neuf"
+       data-prod-price="€559,00"
+       data-prod-old="€799,00"
+       data-prod-badge="-30%"
+       data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/16_860efb5e-9817-44e7-a78e-7e717b04d01e.png?v=1746004991&width=900"
+       data-prod-desc="L'aile qui a révolutionné la compétition. Profil aérodynamique poussé, drift minimal en transition, barre ultra-stable même dans les rafales. Performance pro à prix remisé — idéal pour passer au niveau supérieur.">
       <div class="tr-pcard-badge promo">-30%</div>
       <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/16_860efb5e-9817-44e7-a78e-7e717b04d01e.png?v=1746004991&width=600" alt="Neilpryde Firefly 2025 Neuf" loading="lazy"></div>
       <div class="tr-pcard-body">
         <div class="tr-pcard-price">€559,00<span class="old">€799,00</span></div>
         <div class="tr-pcard-name">NeilPryde Firefly 2025 — Neuf</div>
-        <div class="tr-pcard-cta">Acheter maintenant</div>
       </div>
     </a>
 
-    <a class="tr-pcard" href="https://theridery.com/collections/notre-selection-du-moement/products/kite-attitude-early-bird-1950cm2-1">
+    <a class="tr-pcard" href="https://theridery.com/collections/notre-selection-du-moement/products/kite-attitude-early-bird-1950cm2-1"
+       data-prod-title="Attitude Early Bird 1950cm² 2026 — Neuf"
+       data-prod-price="€795,00"
+       data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/foil-early-bird-vent-leger-pour-la-wing.jpg?v=1764697180&width=900"
+       data-prod-desc="Foil conçu pour le vent léger marseillais. 1950cm² de surface pour décoller dès 12 nœuds. Nouvelle gamme 2026 ultra-réactive, parfaite pour rallonger ta saison et rider même quand ça souffle à peine.">
       <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/foil-early-bird-vent-leger-pour-la-wing.jpg?v=1764697180&width=600" alt="Attitude Early Bird 1950cm² 2026 Neuf" loading="lazy"></div>
       <div class="tr-pcard-body">
         <div class="tr-pcard-price">€795,00</div>
         <div class="tr-pcard-name">Attitude Early Bird 1950cm² 2026 — Neuf</div>
-        <div class="tr-pcard-cta">Acheter maintenant</div>
       </div>
     </a>
 
-    <a class="tr-pcard" href="https://theridery.com/collections/notre-selection-du-moement/products/boardbag-manera-wing-foil-neuf">
+    <a class="tr-pcard" href="https://theridery.com/collections/notre-selection-du-moement/products/boardbag-manera-wing-foil-neuf"
+       data-prod-title="Boardbag Manera Wingfoil — Neuf"
+       data-prod-price="à partir de €300,00"
+       data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/housse-manera-wing-foil_1.jpg?v=1724224188&width=900"
+       data-prod-desc="Sac de transport haute protection pour ta planche + foil. Rangements dédiés pour fuselage, ailes et mât. Mousse renforcée, sangles confort, idéal pour les trips. Plusieurs tailles disponibles.">
       <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/housse-manera-wing-foil_1.jpg?v=1724224188&width=600" alt="Boardbag de voyage Manera Wingfoil Neuf" loading="lazy"></div>
       <div class="tr-pcard-body">
         <div class="tr-pcard-price">à partir de €300,00</div>
-        <div class="tr-pcard-name">Boardbag de voyage Manera Wingfoil — Neuf</div>
-        <div class="tr-pcard-cta">Acheter maintenant</div>
+        <div class="tr-pcard-name">Boardbag Manera Wingfoil — Neuf</div>
       </div>
     </a>
 
@@ -1329,39 +1468,57 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12L15 6"/></svg>
     </button>
     <div class="tr-selection-grid">
-      <a class="tr-pcard" href="https://theridery.com/products/eleveight-rs-v10-2026-neuf">
+      <a class="tr-pcard" href="https://theridery.com/products/eleveight-rs-v10-2026-neuf"
+         data-prod-title="Eleveight RS V10 2026 — Neuf"
+         data-prod-price="€1 339,00"
+         data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/Eleveight-RS-V10-Blue-View-1-scaled_b12de5c3-19fd-48e9-a7fa-9df54bada5ee.png?v=1773056460&width=900"
+         data-prod-desc="La référence all-round 2026. Profil ultra-polyvalent du freeride au big-air, relance explosive, tenue en rafale exemplaire. Construction Dacron haut-module pour une durabilité maximale. Neuve, en stock.">
         <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/Eleveight-RS-V10-Blue-View-1-scaled_b12de5c3-19fd-48e9-a7fa-9df54bada5ee.png?v=1773056460" alt="Eleveight RS V10 2026" loading="lazy"></div>
         <div class="tr-pcard-body">
           <div class="tr-pcard-price">€1 339,00</div>
           <div class="tr-pcard-name">Eleveight RS V10 2026 — Neuf</div>
-          <div class="tr-pcard-cta">Acheter maintenant</div>
         </div>
       </a>
-      <a class="tr-pcard" href="https://theridery.com/products/f-one-bandit-17-tec-2025-occasion">
+      <a class="tr-pcard" href="https://theridery.com/products/f-one-bandit-17-tec-2025-occasion"
+         data-prod-title="F-One Bandit 17 TEC 2025 — Occasion"
+         data-prod-price="€691,00"
+         data-prod-old="€1 550,00"
+         data-prod-badge="-55%"
+         data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/bandit-17-tech-3.png?v=1773486848&width=900"
+         data-prod-desc="La mythique Bandit en version compétition 2025. Construction Technoforce ultra-rigide, relance explosive, drift minimal, tenue en rafale de référence. Occasion testée dans nos ateliers, garantie état confirmé.">
         <div class="tr-pcard-badge promo">-55%</div>
         <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/bandit-17-tech-3.png?v=1773486848" alt="F-One Bandit 17 TEC" loading="lazy"></div>
         <div class="tr-pcard-body">
           <div class="tr-pcard-price">€691,00<span class="old">€1 550,00</span></div>
           <div class="tr-pcard-name">F-One Bandit 17 TEC 2025 — Occasion</div>
-          <div class="tr-pcard-cta">Acheter maintenant</div>
         </div>
       </a>
-      <a class="tr-pcard" href="https://theridery.com/products/f-one-bandit-s4-8m2-2023-occasion">
+      <a class="tr-pcard" href="https://theridery.com/products/f-one-bandit-s4-8m2-2023-occasion"
+         data-prod-title="F-One Bandit S4 8m² 2023 — Occasion"
+         data-prod-price="€459,00"
+         data-prod-old="€1 410,00"
+         data-prod-badge="-67%"
+         data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/Designsanstitre_8_a5794615-221d-4ce4-b75b-084df8b784ef.png?v=1738320740&width=900"
+         data-prod-desc="Bandit version Strapless/Surf. 8m² idéal pour les conditions marseillaises 20–28 nœuds. Très polyvalente, parfaite pour progresser en strapless. Occasion très bon état — à ce prix, c'est une affaire.">
         <div class="tr-pcard-badge promo">-67%</div>
         <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/Designsanstitre_8_a5794615-221d-4ce4-b75b-084df8b784ef.png?v=1738320740" alt="F-One Bandit S4" loading="lazy"></div>
         <div class="tr-pcard-body">
           <div class="tr-pcard-price">€459,00<span class="old">€1 410,00</span></div>
           <div class="tr-pcard-name">F-One Bandit S4 8m² 2023 — Occasion</div>
-          <div class="tr-pcard-cta">Acheter maintenant</div>
         </div>
       </a>
-      <a class="tr-pcard" href="https://theridery.com/products/core-nexus-3-9m2-2023">
+      <a class="tr-pcard" href="https://theridery.com/products/core-nexus-3-9m2-2023"
+         data-prod-title="Core Nexus 3 9m² 2023 — Bon État"
+         data-prod-price="€960,00"
+         data-prod-old="€1 779,00"
+         data-prod-badge="-46%"
+         data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/1713791746191.jpg?v=1713792202&width=900"
+         data-prod-desc="La trois-strut signature Core, fabrication allemande haut de gamme. 9m² idéal pour la plage de vent marseillaise. Construction premium, finitions parfaites. Bon état confirmé par nos techniciens.">
         <div class="tr-pcard-badge promo">-46%</div>
         <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/1713791746191.jpg?v=1713792202" alt="Core Nexus 3" loading="lazy"></div>
         <div class="tr-pcard-body">
           <div class="tr-pcard-price">€960,00<span class="old">€1 779,00</span></div>
           <div class="tr-pcard-name">Core Nexus 3 9m² 2023 — Bon État</div>
-          <div class="tr-pcard-cta">Acheter maintenant</div>
         </div>
       </a>
     </div>
@@ -1380,40 +1537,60 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18L9 12L15 6"/></svg>
     </button>
     <div class="tr-selection-grid">
-      <a class="tr-pcard" href="https://theridery.com/products/jp-australia-x-winger-ipr-48-85l-2023-neuf">
+      <a class="tr-pcard" href="https://theridery.com/products/jp-australia-x-winger-ipr-48-85l-2023-neuf"
+         data-prod-title="JP Australia X-Winger IPR 4'8 (85L) 2023 — Neuf"
+         data-prod-price="€385,00"
+         data-prod-old="€1 199,00"
+         data-prod-badge="-68%"
+         data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/B1DAF69F-2DBC-47CA-80F4-20EF0671A81B.jpg?v=1715351245&width=900"
+         data-prod-desc="La planche qui a formé des centaines de wingeurs sur Marseille. 85L idéal pour apprendre et progresser rapidement. Construction IPR résistante aux chocs, shape équilibré polyvalent. Neuve, prix cassé.">
         <div class="tr-pcard-badge promo">-68%</div>
         <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/B1DAF69F-2DBC-47CA-80F4-20EF0671A81B.jpg?v=1715351245" alt="JP Australia X-Winger IPR 4'8" loading="lazy"></div>
         <div class="tr-pcard-body">
           <div class="tr-pcard-price">€385,00<span class="old">€1 199,00</span></div>
           <div class="tr-pcard-name">JP Australia X-Winger IPR 4'8 (85L)</div>
-          <div class="tr-pcard-cta">Acheter maintenant</div>
         </div>
       </a>
-      <a class="tr-pcard" href="https://theridery.com/products/import-final-board-wing-6">
+      <a class="tr-pcard" href="https://theridery.com/products/import-final-board-wing-6"
+         data-prod-title="Sroka Skyrider 6'0 (119L) 2023"
+         data-prod-price="€449,00"
+         data-prod-old="€999,00"
+         data-prod-badge="-55%"
+         data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/CA3204B5-6CA0-4078-9AC8-E811F1803C01.jpg?v=1726741529&width=900"
+         data-prod-desc="Shape Sroka signature, 119L pour riders plus lourds ou débutants confirmés. Polyvalence waves/foil. Carves fluides, décollage tôt. Occasion très bon état — idéale pour s'installer durablement.">
         <div class="tr-pcard-badge promo">-55%</div>
         <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/CA3204B5-6CA0-4078-9AC8-E811F1803C01.jpg?v=1726741529" alt="Sroka Skyrider 6'0" loading="lazy"></div>
         <div class="tr-pcard-body">
           <div class="tr-pcard-price">€449,00<span class="old">€999,00</span></div>
           <div class="tr-pcard-name">Sroka Skyrider 6'0 (119L) 2023</div>
-          <div class="tr-pcard-cta">Acheter maintenant</div>
         </div>
       </a>
-      <a class="tr-pcard" href="https://theridery.com/products/jp-australia-x-winger-ipr-45-60l-2023-tres-bon-etat">
+      <a class="tr-pcard" href="https://theridery.com/products/jp-australia-x-winger-ipr-45-60l-2023-tres-bon-etat"
+         data-prod-title="JP Australia X-Winger IPR 4'5 (60L) — Très Bon État"
+         data-prod-price="€390,00"
+         data-prod-old="€1 099,00"
+         data-prod-badge="-65%"
+         data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/BDB3F0AD-73A5-403C-B72A-B3859D061FF1.jpg?v=1729843936&width=900"
+         data-prod-desc="Le gabarit avancé X-Winger. 60L compact pour riders confirmés qui veulent foiler tôt et carver fort. Outlines affûtés, réactivité maximale. Très bon état confirmé par nos techniciens.">
         <div class="tr-pcard-badge promo">-65%</div>
         <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/BDB3F0AD-73A5-403C-B72A-B3859D061FF1.jpg?v=1729843936" alt="JP Australia X-Winger IPR 4'5" loading="lazy"></div>
         <div class="tr-pcard-body">
           <div class="tr-pcard-price">€390,00<span class="old">€1 099,00</span></div>
           <div class="tr-pcard-name">JP Australia X-Winger IPR 4'5 (60L)</div>
-          <div class="tr-pcard-cta">Acheter maintenant</div>
         </div>
       </a>
-      <a class="tr-pcard" href="https://theridery.com/products/import-final-board-wing-64">
+      <a class="tr-pcard" href="https://theridery.com/products/import-final-board-wing-64"
+         data-prod-title="JP Australia X-Winger PRO 45L"
+         data-prod-price="€390,00"
+         data-prod-old="€1 649,00"
+         data-prod-badge="-76%"
+         data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/1705150176771.jpg?v=1705150274&width=900"
+         data-prod-desc="Version PRO ultra-compacte 45L. Pour riders experts en quête de sensations pures : release rapide, virages engagés, reprises aériennes. Prix cassé sur un modèle rare. À saisir.">
         <div class="tr-pcard-badge promo">-76%</div>
         <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/1705150176771.jpg?v=1705150274" alt="JP X-Winger PRO 45L" loading="lazy"></div>
         <div class="tr-pcard-body">
           <div class="tr-pcard-price">€390,00<span class="old">€1 649,00</span></div>
           <div class="tr-pcard-name">JP Australia X-Winger PRO 45L</div>
-          <div class="tr-pcard-cta">Acheter maintenant</div>
         </div>
       </a>
     </div>
@@ -1422,6 +1599,71 @@
     </button>
   </div>
 </div>
+
+<!-- === MODAL PRODUIT (partagé par les 3 sections) === -->
+<div class="tr-modal-overlay" id="tr-product-modal" role="dialog" aria-modal="true" aria-label="Détail produit">
+  <div class="tr-modal">
+    <button type="button" class="tr-modal-close" aria-label="Fermer">✕</button>
+    <div class="tr-modal-img"><img id="tr-m-img" src="" alt=""></div>
+    <div class="tr-modal-body">
+      <div class="tr-modal-badge" id="tr-m-badge" style="display:none"></div>
+      <h3 class="tr-modal-name" id="tr-m-name"></h3>
+      <div class="tr-modal-price" id="tr-m-price"></div>
+      <p class="tr-modal-desc" id="tr-m-desc"></p>
+      <div class="tr-modal-actions">
+        <a class="tr-modal-btn primary" id="tr-m-buy" href="#" target="_blank" rel="noopener">Ajouter au panier</a>
+        <a class="tr-modal-btn secondary" id="tr-m-more" href="#" target="_blank" rel="noopener">Voir la fiche complète</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay = document.getElementById('tr-product-modal');
+  if(!overlay) return;
+  var img   = document.getElementById('tr-m-img');
+  var nameE = document.getElementById('tr-m-name');
+  var priceE= document.getElementById('tr-m-price');
+  var descE = document.getElementById('tr-m-desc');
+  var badgeE= document.getElementById('tr-m-badge');
+  var buyE  = document.getElementById('tr-m-buy');
+  var moreE = document.getElementById('tr-m-more');
+
+  function open(d){
+    img.src = d.prodImg || '';
+    img.alt = d.prodTitle || '';
+    nameE.textContent = d.prodTitle || '';
+    var ph = d.prodPrice || '';
+    if(d.prodOld) ph += ' <span class="old">'+d.prodOld+'</span>';
+    priceE.innerHTML = ph;
+    descE.textContent = d.prodDesc || '';
+    if(d.prodBadge){ badgeE.textContent = d.prodBadge; badgeE.style.display='inline-block'; }
+    else { badgeE.style.display='none'; }
+    buyE.href  = d.prodHref || '#';
+    moreE.href = d.prodHref || '#';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay || e.target.classList.contains('tr-modal-close')) close();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && overlay.classList.contains('open')) close();
+  });
+  // Délégation : clic sur n'importe quel .tr-pcard du site
+  document.addEventListener('click', function(e){
+    var item = e.target.closest('.tr-pcard');
+    if(!item || !item.dataset.prodTitle) return;
+    e.preventDefault();
+    open(Object.assign({}, item.dataset, { prodHref: item.getAttribute('href') }));
+  });
+})();
+</script>
+
 <div id="shopify-section-template--27040114671947__98d69967-80c4-408f-9f28-238e4f573cdb" class="shopify-section"><section class="bg-white flex flex-col justify-center items-center gap-8 py-12 overflow-hidden">
   <div class="flex flex-col md:flex-row items-center justify-center gap-3">
     <h1 class="font-jost font-bold uppercase text-4xl">Ils ont testé</h1>
