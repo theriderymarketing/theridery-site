@@ -1032,12 +1032,50 @@
     transition:all .2s;
   }
   .tr-modal-close:hover { background:#F97316; border-color:#F97316; color:#fff; }
-  .tr-modal-img {
-    aspect-ratio:1/1; background:#f7f7f7;
-    display:flex; align-items:center; justify-content:center;
-    padding:40px;
+  /* Galerie photos scrollable */
+  .tr-modal-gallery {
+    position:relative; background:#f7f7f7;
+    aspect-ratio:1/1; overflow:hidden;
   }
-  .tr-modal-img img { max-width:100%; max-height:100%; object-fit:contain; }
+  .tr-modal-slides {
+    display:flex; height:100%;
+    overflow-x:auto; overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    scrollbar-width:none; -ms-overflow-style:none;
+  }
+  .tr-modal-slides::-webkit-scrollbar { display:none; }
+  .tr-modal-slide {
+    flex:0 0 100%; scroll-snap-align:start;
+    display:flex; align-items:center; justify-content:center;
+    padding:36px; box-sizing:border-box;
+  }
+  .tr-modal-slide img { max-width:100%; max-height:100%; object-fit:contain; }
+  .tr-modal-dots {
+    position:absolute; bottom:12px; left:0; right:0;
+    display:flex; justify-content:center; gap:6px; z-index:2;
+    pointer-events:none;
+  }
+  .tr-modal-dot {
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(0,0,0,0.28); cursor:pointer;
+    transition:all .25s; pointer-events:auto;
+    border:none; padding:0;
+  }
+  .tr-modal-dot.active { background:#1d1d1d; width:22px; border-radius:4px; }
+  .tr-modal-gnav {
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:36px; height:36px; border-radius:50%;
+    background:rgba(255,255,255,0.9); border:none;
+    display:none; align-items:center; justify-content:center;
+    cursor:pointer; z-index:3; box-shadow:0 2px 10px rgba(0,0,0,0.12);
+    transition:background .2s;
+  }
+  .tr-modal-gnav:hover { background:#fff; }
+  .tr-modal-gallery.has-many .tr-modal-gnav { display:flex; }
+  .tr-modal-gnav.prev { left:10px; }
+  .tr-modal-gnav.next { right:10px; }
+  .tr-modal-gnav svg { width:14px; height:14px; stroke:#1d1d1d; fill:none; stroke-width:2.4; }
   .tr-modal-body {
     padding:44px 36px; display:flex; flex-direction:column;
     justify-content:center; gap:16px;
@@ -1106,7 +1144,8 @@
   .tr-modal-btn.secondary:hover { background:#1d1d1d; color:#fff; }
   @media (max-width:720px) {
     .tr-modal { grid-template-columns:1fr; max-height:95vh; }
-    .tr-modal-img { aspect-ratio:16/10; padding:24px; }
+    .tr-modal-gallery { aspect-ratio:1/1; }
+    .tr-modal-slide { padding:24px; }
     .tr-modal-body { padding:28px 22px 32px; }
     .tr-modal-name { font-size:18px; }
     .tr-modal-price { font-size:20px; }
@@ -1645,7 +1684,16 @@
 <div class="tr-modal-overlay" id="tr-product-modal" role="dialog" aria-modal="true" aria-label="Détail produit">
   <div class="tr-modal">
     <button type="button" class="tr-modal-close" aria-label="Fermer">✕</button>
-    <div class="tr-modal-img"><img id="tr-m-img" src="" alt=""></div>
+    <div class="tr-modal-gallery" id="tr-m-gallery">
+      <div class="tr-modal-slides" id="tr-m-slides"></div>
+      <button type="button" class="tr-modal-gnav prev" id="tr-m-gprev" aria-label="Photo précédente">
+        <svg viewBox="0 0 24 24"><path d="M15 18L9 12L15 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="tr-modal-gnav next" id="tr-m-gnext" aria-label="Photo suivante">
+        <svg viewBox="0 0 24 24"><path d="M9 6L15 12L9 18" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="tr-modal-dots" id="tr-m-dots"></div>
+    </div>
     <div class="tr-modal-body">
       <div class="tr-modal-badge" id="tr-m-badge" style="display:none"></div>
       <h3 class="tr-modal-name" id="tr-m-name"></h3>
@@ -1666,7 +1714,6 @@
 (function(){
   var overlay = document.getElementById('tr-product-modal');
   if(!overlay) return;
-  var img      = document.getElementById('tr-m-img');
   var nameE    = document.getElementById('tr-m-name');
   var priceE   = document.getElementById('tr-m-price');
   var descE    = document.getElementById('tr-m-desc');
@@ -1677,6 +1724,81 @@
   var optsBox  = document.getElementById('tr-m-options');
   var optLabel = document.getElementById('tr-m-opt-label');
   var optSel   = document.getElementById('tr-m-opt-selected');
+  var gallery  = document.getElementById('tr-m-gallery');
+  var slidesE  = document.getElementById('tr-m-slides');
+  var dotsE    = document.getElementById('tr-m-dots');
+  var gPrev    = document.getElementById('tr-m-gprev');
+  var gNext    = document.getElementById('tr-m-gnext');
+
+  var imgCache = {};
+  function getHandle(href){
+    var m = (href||'').match(/\/products\/([^\/?#]+)/);
+    return m ? m[1] : null;
+  }
+  function absUrl(u){
+    if(!u) return '';
+    if(u.indexOf('//') === 0) return 'https:'+u;
+    if(u.indexOf('http') === 0) return u;
+    return u;
+  }
+  function fetchImages(href, fallback){
+    var handle = getHandle(href);
+    if(!handle) return Promise.resolve([fallback].filter(Boolean));
+    if(imgCache[handle]) return Promise.resolve(imgCache[handle]);
+    return fetch('https://theridery.com/products/'+handle+'.json', {mode:'cors'})
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(j){
+        var arr = (j.product && j.product.images || [])
+          .map(function(im){ return absUrl(im.src || im); })
+          .filter(Boolean);
+        if(!arr.length && fallback) arr = [fallback];
+        imgCache[handle] = arr;
+        return arr;
+      })
+      .catch(function(){ return [fallback].filter(Boolean); });
+  }
+
+  function renderGallery(urls){
+    slidesE.innerHTML = '';
+    dotsE.innerHTML = '';
+    gallery.classList.toggle('has-many', urls.length > 1);
+    urls.forEach(function(u, i){
+      var slide = document.createElement('div');
+      slide.className = 'tr-modal-slide';
+      var im = document.createElement('img');
+      im.src = u; im.alt = 'Photo '+(i+1); im.loading = i===0?'eager':'lazy';
+      slide.appendChild(im);
+      slidesE.appendChild(slide);
+      if(urls.length > 1){
+        var d = document.createElement('button');
+        d.type = 'button'; d.className = 'tr-modal-dot' + (i===0?' active':'');
+        d.setAttribute('aria-label','Photo '+(i+1));
+        d.addEventListener('click', function(){
+          slidesE.scrollTo({ left: i * slidesE.clientWidth, behavior:'smooth' });
+        });
+        dotsE.appendChild(d);
+      }
+    });
+    slidesE.scrollLeft = 0;
+    updateDots();
+  }
+  function updateDots(){
+    var w = slidesE.clientWidth || 1;
+    var i = Math.round(slidesE.scrollLeft / w);
+    Array.prototype.forEach.call(dotsE.children, function(d, k){
+      d.classList.toggle('active', k === i);
+    });
+  }
+  slidesE.addEventListener('scroll', function(){
+    if(slidesE._t) cancelAnimationFrame(slidesE._t);
+    slidesE._t = requestAnimationFrame(updateDots);
+  });
+  gPrev.addEventListener('click', function(){
+    slidesE.scrollBy({ left: -slidesE.clientWidth, behavior:'smooth' });
+  });
+  gNext.addEventListener('click', function(){
+    slidesE.scrollBy({ left: slidesE.clientWidth, behavior:'smooth' });
+  });
 
   function renderOptions(sizes, label){
     optsBox.innerHTML = '';
@@ -1708,8 +1830,6 @@
   }
 
   function open(d){
-    img.src = d.prodImg || '';
-    img.alt = d.prodTitle || '';
     nameE.textContent = d.prodTitle || '';
     var ph = d.prodPrice || '';
     if(d.prodOld) ph += ' <span class="old">'+d.prodOld+'</span>';
@@ -1722,6 +1842,11 @@
     // Options (taille/volume/...) : data-prod-sizes="75L,90L,110L,130L" + data-prod-sizes-label="Volume"
     var sizes = (d.prodSizes || '').split(',').map(function(s){return s.trim();}).filter(Boolean);
     renderOptions(sizes, d.prodSizesLabel);
+    // Photos : fallback immédiat = main img, puis fetch de toutes les photos Shopify
+    renderGallery([d.prodImg].filter(Boolean));
+    fetchImages(d.prodHref, d.prodImg).then(function(urls){
+      if(urls && urls.length && overlay.classList.contains('open')) renderGallery(urls);
+    });
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
