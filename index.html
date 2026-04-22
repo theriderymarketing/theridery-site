@@ -922,7 +922,8 @@
     overflow-x:auto; overflow-y:visible;
     scroll-snap-type:x mandatory;
     scroll-behavior:smooth;
-    padding:8px 4px 20px;
+    padding:8px 60px 20px; /* espace pour que les flèches ne mordent pas les produits */
+    scroll-padding-left:60px;
     scrollbar-width:none; -ms-overflow-style:none;
   }
   .tr-selection-grid::-webkit-scrollbar { display:none; }
@@ -985,13 +986,21 @@
   .tr-nav svg { width:16px; height:16px; stroke:#1d1d1d; transition:stroke .2s; }
   .tr-nav-prev { left:-22px; }
   .tr-nav-next { right:-22px; }
-  @media (max-width:1024px) { .tr-nav-prev { left:-12px; } .tr-nav-next { right:-12px; } }
+  @media (max-width:1024px) {
+    .tr-selection-grid { padding:8px 52px 20px; scroll-padding-left:52px; }
+    .tr-nav-prev { left:-8px; } .tr-nav-next { right:-8px; }
+  }
   @media (max-width:640px)  {
     .tr-pcard { flex:0 0 200px; }
+    .tr-selection-grid { padding:8px 28px 20px; scroll-padding-left:28px; gap:20px; }
     .tr-nav { width:36px; height:36px; }
-    .tr-nav-prev { left:-6px; } .tr-nav-next { right:-6px; }
+    .tr-nav-prev { left:-14px; } .tr-nav-next { right:-14px; }
   }
-  @media (max-width:420px) { .tr-pcard { flex:0 0 170px; } }
+  @media (max-width:480px) {
+    .tr-pcard { flex:0 0 170px; }
+    .tr-selection-grid { padding:8px 14px 20px; scroll-padding-left:14px; }
+    .tr-selection-stage .tr-nav { display:none; } /* swipe sur mobile */
+  }
 
   /* === MODAL PRODUIT === */
   .tr-modal-overlay {
@@ -1055,6 +1064,30 @@
   .tr-modal-desc {
     font-size:14px; color:#555; line-height:1.7; margin:0;
   }
+  /* Sélecteur d'options (taille, volume…) */
+  .tr-modal-options-wrap { display:none; flex-direction:column; gap:8px; }
+  .tr-modal-options-wrap.show { display:flex; }
+  .tr-modal-options-label {
+    font-size:11px; font-weight:800; text-transform:uppercase;
+    letter-spacing:0.1em; color:#777;
+  }
+  .tr-modal-options-label b { color:#1d1d1d; font-weight:800; }
+  .tr-modal-options {
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .tr-opt {
+    background:#fff; border:1.5px solid #ddd; color:#1d1d1d;
+    font-size:13px; font-weight:700; padding:8px 14px;
+    cursor:pointer; transition:all .18s; font-family:inherit;
+    letter-spacing:0.02em; min-width:48px; text-align:center;
+  }
+  .tr-opt:hover { border-color:#1d1d1d; }
+  .tr-opt.active {
+    background:#1d1d1d; color:#fff; border-color:#1d1d1d;
+  }
+  .tr-modal-btn.primary.disabled {
+    background:#c8c8c8; cursor:not-allowed; pointer-events:none;
+  }
   .tr-modal-actions {
     display:flex; flex-direction:column; gap:10px; margin-top:14px;
   }
@@ -1095,6 +1128,8 @@
        data-prod-title="F-One Rocket Wing ASC 75L/90L/110L/130L 2025"
        data-prod-price="à partir de €849,00"
        data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/planche-f-one-rocket-wing-asc-2025.webp?v=1745393311&width=900"
+       data-prod-sizes="75L,90L,110L,130L"
+       data-prod-sizes-label="Volume"
        data-prod-desc="La planche performance signature F-One. Construction ASC ultra-rigide et légère, déclinée en 4 volumes (75L, 90L, 110L, 130L) pour s'adapter à tous les gabarits et niveaux, du débutant au confirmé. Le bon choix pour progresser vite sur Marseille.">
       <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/planche-f-one-rocket-wing-asc-2025.webp?v=1745393311&width=600" alt="F-One Rocket Wing ASC 75L/90L/110L/130L 2025" loading="lazy"></div>
       <div class="tr-pcard-body">
@@ -1109,6 +1144,8 @@
        data-prod-old="€799,00"
        data-prod-badge="-30%"
        data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/16_860efb5e-9817-44e7-a78e-7e717b04d01e.png?v=1746004991&width=900"
+       data-prod-sizes="3.2m²,3.7m²,4.2m²,4.7m²,5.3m²,5.8m²,6.4m²"
+       data-prod-sizes-label="Taille"
        data-prod-desc="L'aile qui a révolutionné la compétition. Profil aérodynamique poussé, drift minimal en transition, barre ultra-stable même dans les rafales. Performance pro à prix remisé — idéal pour passer au niveau supérieur.">
       <div class="tr-pcard-badge promo">-30%</div>
       <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/16_860efb5e-9817-44e7-a78e-7e717b04d01e.png?v=1746004991&width=600" alt="Neilpryde Firefly 2025 Neuf" loading="lazy"></div>
@@ -1134,6 +1171,8 @@
        data-prod-title="Boardbag Manera Wingfoil — Neuf"
        data-prod-price="à partir de €300,00"
        data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/housse-manera-wing-foil_1.jpg?v=1724224188&width=900"
+       data-prod-sizes="5'0,5'4,5'8,6'0"
+       data-prod-sizes-label="Taille"
        data-prod-desc="Sac de transport haute protection pour ta planche + foil. Rangements dédiés pour fuselage, ailes et mât. Mousse renforcée, sangles confort, idéal pour les trips. Plusieurs tailles disponibles.">
       <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/housse-manera-wing-foil_1.jpg?v=1724224188&width=600" alt="Boardbag de voyage Manera Wingfoil Neuf" loading="lazy"></div>
       <div class="tr-pcard-body">
@@ -1472,6 +1511,8 @@
          data-prod-title="Eleveight RS V10 2026 — Neuf"
          data-prod-price="€1 339,00"
          data-prod-img="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/Eleveight-RS-V10-Blue-View-1-scaled_b12de5c3-19fd-48e9-a7fa-9df54bada5ee.png?v=1773056460&width=900"
+         data-prod-sizes="5m²,6m²,7m²,8m²,9m²,10m²,12m²"
+         data-prod-sizes-label="Taille"
          data-prod-desc="La référence all-round 2026. Profil ultra-polyvalent du freeride au big-air, relance explosive, tenue en rafale exemplaire. Construction Dacron haut-module pour une durabilité maximale. Neuve, en stock.">
         <div class="tr-pcard-img"><img src="https://cdn.shopify.com/s/files/1/0736/4123/0645/files/Eleveight-RS-V10-Blue-View-1-scaled_b12de5c3-19fd-48e9-a7fa-9df54bada5ee.png?v=1773056460" alt="Eleveight RS V10 2026" loading="lazy"></div>
         <div class="tr-pcard-body">
@@ -1610,6 +1651,10 @@
       <h3 class="tr-modal-name" id="tr-m-name"></h3>
       <div class="tr-modal-price" id="tr-m-price"></div>
       <p class="tr-modal-desc" id="tr-m-desc"></p>
+      <div class="tr-modal-options-wrap" id="tr-m-options-wrap">
+        <div class="tr-modal-options-label"><span id="tr-m-opt-label">Taille</span> : <b id="tr-m-opt-selected">Choisis une option</b></div>
+        <div class="tr-modal-options" id="tr-m-options"></div>
+      </div>
       <div class="tr-modal-actions">
         <a class="tr-modal-btn primary" id="tr-m-buy" href="#" target="_blank" rel="noopener">Ajouter au panier</a>
         <a class="tr-modal-btn secondary" id="tr-m-more" href="#" target="_blank" rel="noopener">Voir la fiche complète</a>
@@ -1621,13 +1666,46 @@
 (function(){
   var overlay = document.getElementById('tr-product-modal');
   if(!overlay) return;
-  var img   = document.getElementById('tr-m-img');
-  var nameE = document.getElementById('tr-m-name');
-  var priceE= document.getElementById('tr-m-price');
-  var descE = document.getElementById('tr-m-desc');
-  var badgeE= document.getElementById('tr-m-badge');
-  var buyE  = document.getElementById('tr-m-buy');
-  var moreE = document.getElementById('tr-m-more');
+  var img      = document.getElementById('tr-m-img');
+  var nameE    = document.getElementById('tr-m-name');
+  var priceE   = document.getElementById('tr-m-price');
+  var descE    = document.getElementById('tr-m-desc');
+  var badgeE   = document.getElementById('tr-m-badge');
+  var buyE     = document.getElementById('tr-m-buy');
+  var moreE    = document.getElementById('tr-m-more');
+  var optsWrap = document.getElementById('tr-m-options-wrap');
+  var optsBox  = document.getElementById('tr-m-options');
+  var optLabel = document.getElementById('tr-m-opt-label');
+  var optSel   = document.getElementById('tr-m-opt-selected');
+
+  function renderOptions(sizes, label){
+    optsBox.innerHTML = '';
+    if(!sizes || !sizes.length){
+      optsWrap.classList.remove('show');
+      buyE.classList.remove('disabled');
+      buyE.textContent = 'Ajouter au panier';
+      return;
+    }
+    optLabel.textContent = label || 'Taille';
+    optSel.textContent = 'Choisis une option';
+    optsWrap.classList.add('show');
+    buyE.classList.add('disabled');
+    buyE.textContent = 'Choisir une ' + (label || 'option').toLowerCase();
+    sizes.forEach(function(sz){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'tr-opt';
+      b.textContent = sz;
+      b.addEventListener('click', function(){
+        optsBox.querySelectorAll('.tr-opt').forEach(function(x){ x.classList.remove('active'); });
+        b.classList.add('active');
+        optSel.textContent = sz;
+        buyE.classList.remove('disabled');
+        buyE.textContent = 'Ajouter au panier — ' + sz;
+      });
+      optsBox.appendChild(b);
+    });
+  }
 
   function open(d){
     img.src = d.prodImg || '';
@@ -1641,6 +1719,9 @@
     else { badgeE.style.display='none'; }
     buyE.href  = d.prodHref || '#';
     moreE.href = d.prodHref || '#';
+    // Options (taille/volume/...) : data-prod-sizes="75L,90L,110L,130L" + data-prod-sizes-label="Volume"
+    var sizes = (d.prodSizes || '').split(',').map(function(s){return s.trim();}).filter(Boolean);
+    renderOptions(sizes, d.prodSizesLabel);
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
