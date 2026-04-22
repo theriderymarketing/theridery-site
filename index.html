@@ -844,11 +844,56 @@
 </div>
 
 
-<!-- SÉPARATEUR SECTION WINGBOOST -->
+<!-- SÉPARATEUR SECTION WINGBOOST — BANDE ORANGE TICKER DÉFILANT -->
 <div style="height:40px;background:#fff;width:100vw;margin-left:calc(-50vw + 50%);"></div>
-<div style="background:#F97316;padding:14px 24px;text-align:center;font-family:'Jost',Montserrat,sans-serif;width:100vw;margin-left:calc(-50vw + 50%);box-sizing:border-box;">
-  <span style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.18em;color:#fff;">⚡ L'abonnement wingfoil exclusif — Seulement chez The Ridery</span>
+<style>
+  .wb-ticker-wrap {
+    background:#F97316;overflow:hidden;width:100vw;margin-left:calc(-50vw + 50%);
+    padding:14px 0;font-family:'Jost',Montserrat,sans-serif;position:relative;
+  }
+  .wb-ticker {
+    display:flex;gap:48px;align-items:center;white-space:nowrap;
+    animation:wbScroll 38s linear infinite;
+    width:max-content;
+  }
+  .wb-ticker:hover { animation-play-state:paused; }
+  .wb-ticker span {
+    font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.18em;color:#fff;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .wb-ticker .bullet { color:#1d1d1d;font-size:10px; }
+  @keyframes wbScroll {
+    from { transform:translateX(0); }
+    to { transform:translateX(-50%); }
+  }
+</style>
+<div class="wb-ticker-wrap">
+  <div class="wb-ticker" id="wb-ticker">
+    <!-- Le contenu est dupliqué 2x par JS pour un loop parfait -->
+    <span>⚡ L'abonnement Wingfoil exclusif — Seulement chez The Ridery</span>
+    <span class="bullet">●</span>
+    <span>🏄 Foil + Planche livrés chez toi en 72h</span>
+    <span class="bullet">●</span>
+    <span>🔄 2 changements matos inclus par an</span>
+    <span class="bullet">●</span>
+    <span>🛡️ Assurance casse/vol disponible</span>
+    <span class="bullet">●</span>
+    <span>💰 À partir de 99€/mois — Résiliable après 3 mois</span>
+    <span class="bullet">●</span>
+    <span>📍 Retrait Paris · Marseille · Almanarre</span>
+    <span class="bullet">●</span>
+    <span>⭐ 4.9/5 sur Google · +200 riders abonnés</span>
+    <span class="bullet">●</span>
+    <span>🎁 Crédit boutique jusqu'à 600€ inclus</span>
+    <span class="bullet">●</span>
+  </div>
 </div>
+<script>
+  (function(){
+    var t=document.getElementById('wb-ticker');
+    if(t){ t.innerHTML+=t.innerHTML; } // duplique pour loop fluide
+  })();
+</script>
 
 <!-- WINGBOOST — Analyseur + Promoteur (PCM) -->
 <section style="position:relative;overflow:hidden;font-family:'Jost',Montserrat,sans-serif;min-height:520px;display:flex;align-items:center;width:100vw;margin-left:calc(-50vw + 50%);">
