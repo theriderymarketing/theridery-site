@@ -1740,8 +1740,8 @@
 </script>
 
 <!-- === Avis Google - nouveau design carousel === -->
-<section class="bg-white overflow-hidden" style="padding:56px 0 48px 20px;font-family:'Jost',sans-serif;">
-  <div style="max-width:none;margin:0;padding-left:max(24px, calc((100vw - 1400px) / 2));">
+<section class="bg-white overflow-hidden" style="padding:56px 20px 48px 20px;font-family:'Jost',sans-serif;">
+  <div style="max-width:1400px;margin:0 auto;padding:0 24px;">
 
     <!-- Titre centré -->
     <div style="display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:36px;">
@@ -1914,7 +1914,12 @@
   .tr-rev-stats-count svg { height:13px !important; }
 
   .tr-rev-carousel-wrap {
-    position:relative; padding:0 56px 0 30px;
+    position:relative; padding:0 52px 0 24px;
+  }
+  .tr-rev-carousel-wrap::after {
+    content:""; position:absolute; top:0; right:46px; bottom:0; width:60px;
+    background:linear-gradient(to right, rgba(255,255,255,0), #fff 85%);
+    pointer-events:none; z-index:3;
   }
   .tr-rev-track {
     display:flex; gap:18px; overflow-x:auto;
@@ -1956,7 +1961,7 @@
   }
   .tr-rev-arrow:hover { background:#f4f6f8; transform:translateY(-50%) scale(1.05); }
   .tr-rev-prev { left:-22px; }
-  .tr-rev-next { right:6px; }
+  .tr-rev-next { right:0; }
 
   @media (max-width:900px) {
     .tr-rev-grid { grid-template-columns:1fr; gap:20px; }
