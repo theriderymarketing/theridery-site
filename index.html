@@ -1890,7 +1890,7 @@
 
 <style>
   .tr-rev-grid {
-    display:grid; grid-template-columns:240px 1fr; gap:0; align-items:center;
+    display:grid; grid-template-columns:240px minmax(0,1fr); gap:0; align-items:center;
   }
   .tr-rev-stats {
     background:#f4f6f8; border-radius:14px;
@@ -1915,6 +1915,7 @@
 
   .tr-rev-carousel-wrap {
     position:relative; padding:0 52px 0 24px;
+    min-width:0; overflow:hidden;
   }
   .tr-rev-carousel-wrap::after {
     content:""; position:absolute; top:0; right:46px; bottom:0; width:60px;
