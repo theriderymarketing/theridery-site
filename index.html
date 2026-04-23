@@ -2397,7 +2397,7 @@
   </a>
 </section>
 </div>
-<div id="shopify-section-template--27040114671947__fbe944ff-149a-4765-b629-19a3562505c3" class="shopify-section"><section class="flex items-stretch bg-primary" style="min-height:560px;">
+<div id="shopify-section-template--27040114671947__fbe944ff-149a-4765-b629-19a3562505c3" class="shopify-section" style="margin-top:56px;border-top:6px solid #29D3B7;border-bottom:6px solid #29D3B7;"><section class="flex items-stretch bg-white" style="min-height:560px;">
   <div class="relative flex flex-col text-center justify-center items-center min-w-full md:min-w-[30vw] py-10 gap-6 px-12 md:py-8" style="margin-left:-8px;">
     <img
       src="https://theridery.com/cdn/shop/files/keep-riding_2048x.png?v=1704327500"
@@ -2466,8 +2466,9 @@
   </button>
 </a>
   </div>
-  <div class="relative w-0 md:w-full md:min-w-0 md:self-stretch bg-primary overflow-hidden" style="min-height:560px;">
-    <div id="storeCard" class="absolute z-[9999]" style="top:16px;left:16px;right:16px;max-width:360px;background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.12);padding:14px 16px;font-family:'Jost',sans-serif;">
+  <div class="relative w-0 md:w-full md:min-w-0 md:self-stretch overflow-hidden" style="min-height:560px;background:#e9eef1;">
+    <div id="storeCard" class="absolute z-[9999]" style="top:16px;left:16px;background:#fff;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,0.08);padding:10px 18px;font-family:'Jost',sans-serif;font-size:14px;color:#1d1d1d;font-weight:500;display:flex;align-items:center;gap:8px;"><span style="color:#666;">Sélectionnez un magasin</span><span style="color:#999;font-size:12px;">▾</span></div>
+    <div id="storeCardFull" class="absolute z-[9999] hidden" style="top:16px;left:16px;right:16px;max-width:360px;background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.12);padding:14px 16px;font-family:'Jost',sans-serif;">
       <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1e5a78;margin-bottom:10px;">Nos boutiques</div>
       <button type="button" data-store="paris" class="tr-store-item" style="display:flex;gap:10px;align-items:flex-start;width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px;background:#fff;cursor:pointer;margin-bottom:8px;text-align:left;transition:all .15s;">
         <span style="font-size:18px;">📍</span>
@@ -2494,6 +2495,14 @@
     </style>
     <script>
       (function(){
+        var pill = document.getElementById('storeCard');
+        var full = document.getElementById('storeCardFull');
+        if (pill && full) {
+          pill.style.cursor = 'pointer';
+          pill.addEventListener('click', function(){
+            full.classList.toggle('hidden');
+          });
+        }
         document.querySelectorAll('.tr-store-item').forEach(function(btn){
           btn.addEventListener('click', function(){
             var s = btn.dataset.store;
