@@ -2897,7 +2897,7 @@
 <style>
   #tr-faq-btn {
     position:fixed; top:50%; right:0; transform:translateY(-50%);
-    min-width:56px; min-height:160px; padding:16px 10px;
+    width:58px; padding:14px 0;
     background:#2BDBC6; color:#1d1d1d;
     border:none; border-radius:14px 0 0 14px; cursor:pointer;
     box-shadow:-4px 4px 20px rgba(0,0,0,0.25);
@@ -2908,16 +2908,19 @@
   }
   #tr-faq-btn:hover { background:#1fc9b3; transform:translateY(-50%) translateX(-4px); }
   #tr-faq-btn .faq-mark {
-    width:28px; height:28px; border-radius:7px;
+    width:30px; height:30px; border-radius:7px;
     background:#1d1d1d; color:#2BDBC6;
     display:flex; align-items:center; justify-content:center;
-    font-size:16px; font-weight:900;
+    font-size:17px; font-weight:900;
+    font-family:'Jost','Montserrat',system-ui,sans-serif;
   }
   #tr-faq-btn .faq-label {
-    writing-mode:vertical-rl; transform:rotate(180deg);
-    font-weight:900; font-size:15px; letter-spacing:0.22em;
+    display:flex; flex-direction:column; align-items:center; gap:3px;
+    font-weight:900; font-size:17px; line-height:1;
     color:#1d1d1d; text-transform:uppercase;
+    font-family:'Jost','Montserrat',system-ui,sans-serif;
   }
+  #tr-faq-btn .faq-label span { display:block; }
   #tr-faq-panel {
     position:fixed; top:0; right:0; height:100vh; width:420px; max-width:92vw;
     background:#fff; box-shadow:-8px 0 32px rgba(0,0,0,0.22);
@@ -2951,15 +2954,15 @@
   .tr-faq-footer { padding:14px 22px; background:#1d1d1d; color:#bbb; font-size:11px; line-height:1.6; }
   .tr-faq-footer a { color:#2BDBC6; text-decoration:none; font-weight:700; }
   @media (max-width:640px) {
-    #tr-faq-btn { min-width:48px; min-height:130px; padding:14px 8px; }
-    #tr-faq-btn .faq-label { font-size:13px; letter-spacing:0.18em; }
-    #tr-faq-btn .faq-mark { width:24px; height:24px; font-size:14px; }
+    #tr-faq-btn { width:50px; padding:12px 0; gap:10px; }
+    #tr-faq-btn .faq-label { font-size:15px; }
+    #tr-faq-btn .faq-mark { width:26px; height:26px; font-size:15px; }
     #tr-faq-panel { width:100vw; }
   }
 </style>
 <button id="tr-faq-btn" aria-label="Ouvrir la FAQ">
   <span class="faq-mark">?</span>
-  <span class="faq-label">FAQ</span>
+  <span class="faq-label"><span>F</span><span>A</span><span>Q</span></span>
 </button>
 <aside id="tr-faq-panel" aria-hidden="true">
   <div class="tr-faq-hd">
