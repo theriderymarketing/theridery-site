@@ -249,6 +249,18 @@
     margin-left:0 !important; margin-right:0 !important;
     box-sizing:border-box !important;
   }
+  /* Carte + bande paiements : zéro gap, la carte remplit toute sa colonne */
+  #shopify-section-template--27040114671947__fbe944ff-149a-4765-b629-19a3562505c3,
+  #shopify-section-template--27040114671947__dec5ab4c-74bc-4c2c-99e4-76261d957651 {
+    margin-top:0 !important; margin-bottom:0 !important;
+  }
+  #shopify-section-template--27040114671947__fbe944ff-149a-4765-b629-19a3562505c3 > section {
+    margin:0 !important; padding-top:0 !important; padding-bottom:0 !important;
+  }
+  #shopify-section-template--27040114671947__fbe944ff-149a-4765-b629-19a3562505c3 #map {
+    position:absolute !important; inset:0 !important;
+    width:100% !important; height:100% !important;
+  }
   /* Mais garder un petit padding interne pour que le texte ne colle pas aux bords */
   .shopify-section > section {
     padding-left:clamp(16px,4vw,64px) !important;
@@ -2368,8 +2380,8 @@
   </a>
 </section>
 </div>
-<div id="shopify-section-template--27040114671947__fbe944ff-149a-4765-b629-19a3562505c3" class="shopify-section"><section class="flex">
-  <div class="relative flex flex-col text-center justify-center items-center min-w-full md:min-w-[30vw] py-20 gap-6 px-12 md:py-5">
+<div id="shopify-section-template--27040114671947__fbe944ff-149a-4765-b629-19a3562505c3" class="shopify-section"><section class="flex items-stretch" style="min-height:560px;">
+  <div class="relative flex flex-col text-center justify-center items-center min-w-full md:min-w-[30vw] py-10 gap-6 px-12 md:py-8">
     <img
       src="https://theridery.com/cdn/shop/files/keep-riding_2048x.png?v=1704327500"
       alt="Header img"
@@ -2437,7 +2449,7 @@
   </button>
 </a>
   </div>
-  <div class="relative w-0 md:w-full md:min-w-0 bg-white overflow-hidden" style="min-height:480px;">
+  <div class="relative w-0 md:w-full md:min-w-0 md:self-stretch bg-white overflow-hidden" style="min-height:560px;">
     <select id="storeSelector" class="absolute top-1 left-1 w-80 z-[9999]">
       <option value="">Sélectionnez un magasin</option>
     </select>
