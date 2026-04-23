@@ -2897,28 +2897,39 @@
 <style>
   #tr-faq-btn {
     position:fixed; top:50%; right:0; transform:translateY(-50%);
-    width:31px; padding:8px 0;
-    background:#2BDBC6; color:#1d1d1d;
-    border:none; border-radius:7px 0 0 7px; cursor:pointer;
-    box-shadow:-2px 2px 6px rgba(0,0,0,0.13);
+    width:40px; padding:12px 0 14px;
+    background:#2BDBC6;
+    border:none; border-radius:6px 0 0 6px; cursor:pointer;
+    box-shadow:-2px 2px 8px rgba(0,0,0,0.15);
     font-family:'Jost','Montserrat',system-ui,sans-serif;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
     z-index:2147483646;
     transition:transform .2s ease, background .2s ease;
   }
   #tr-faq-btn:hover { background:#1fc9b3; transform:translateY(-50%) translateX(-2px); }
   #tr-faq-btn .faq-label {
     writing-mode:vertical-rl; transform:rotate(180deg);
-    font-weight:800; font-size:12px; letter-spacing:0.05em;
+    font-weight:900; font-size:15px; letter-spacing:0.08em;
     color:#1d1d1d; text-transform:uppercase;
     line-height:1;
   }
   #tr-faq-btn .faq-mark {
-    width:18px; height:18px; border-radius:4px;
-    background:#1d1d1d;
+    position:relative;
+    width:26px; height:22px; border-radius:5px;
+    background:#0e5b54;
+    color:#2BDBC6;
     display:flex; align-items:center; justify-content:center;
+    font-size:14px; font-weight:900; line-height:1;
+    font-family:'Jost','Montserrat',system-ui,sans-serif;
   }
-  #tr-faq-btn .faq-mark svg { width:10px; height:10px; fill:#2BDBC6; display:block; }
+  #tr-faq-btn .faq-mark::after {
+    content:''; position:absolute;
+    left:4px; bottom:-5px;
+    width:0; height:0;
+    border-style:solid;
+    border-width:5px 5px 0 0;
+    border-color:#0e5b54 transparent transparent transparent;
+  }
   #tr-faq-panel {
     position:fixed; top:0; right:0; height:100vh; width:420px; max-width:92vw;
     background:#fff; box-shadow:-8px 0 32px rgba(0,0,0,0.22);
@@ -2952,16 +2963,16 @@
   .tr-faq-footer { padding:14px 22px; background:#1d1d1d; color:#bbb; font-size:11px; line-height:1.6; }
   .tr-faq-footer a { color:#2BDBC6; text-decoration:none; font-weight:700; }
   @media (max-width:640px) {
-    #tr-faq-btn { width:29px; padding:7px 0; gap:5px; }
-    #tr-faq-btn .faq-label { font-size:10px; }
-    #tr-faq-btn .faq-mark { width:16px; height:16px; }
-    #tr-faq-btn .faq-mark svg { width:9px; height:9px; }
+    #tr-faq-btn { width:36px; padding:10px 0 12px; gap:8px; }
+    #tr-faq-btn .faq-label { font-size:13px; }
+    #tr-faq-btn .faq-mark { width:22px; height:19px; font-size:12px; }
+    #tr-faq-btn .faq-mark::after { left:3px; bottom:-4px; border-width:4px 4px 0 0; }
     #tr-faq-panel { width:100vw; }
   }
 </style>
 <button id="tr-faq-btn" aria-label="Ouvrir la FAQ">
   <span class="faq-label">FAQ</span>
-  <span class="faq-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8.5L6 22v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></span>
+  <span class="faq-mark">?</span>
 </button>
 <aside id="tr-faq-panel" aria-hidden="true">
   <div class="tr-faq-hd">
