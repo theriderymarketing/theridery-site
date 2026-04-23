@@ -2896,27 +2896,31 @@
 <!-- ========== FAQ WIDGET THE RIDERY ========== -->
 <style>
   #tr-faq-btn {
-    position:fixed; bottom:110px; right:22px;
-    padding:12px 18px;
+    position:fixed; top:50%; right:0; transform:translateY(-50%);
+    width:44px; padding:10px 0;
     background:#2BDBC6; color:#1d1d1d;
-    border:none; border-radius:999px; cursor:pointer;
-    box-shadow:0 6px 20px rgba(0,0,0,0.22);
+    border:none; border-radius:10px 0 0 10px; cursor:pointer;
+    box-shadow:-3px 3px 14px rgba(0,0,0,0.22);
     font-family:'Jost','Montserrat',system-ui,sans-serif;
-    display:flex; flex-direction:row; align-items:center; gap:10px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px;
     z-index:2147483646;
-    transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+    transition:transform .25s ease, background .25s ease;
   }
-  #tr-faq-btn:hover { background:#1fc9b3; transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,0.28); }
-  #tr-faq-btn .faq-label {
-    font-weight:900; font-size:15px; letter-spacing:0.18em;
-    color:#1d1d1d; text-transform:uppercase;
-  }
+  #tr-faq-btn:hover { background:#1fc9b3; transform:translateY(-50%) translateX(-3px); }
   #tr-faq-btn .faq-mark {
-    width:28px; height:28px; border-radius:50%;
+    width:22px; height:22px; border-radius:6px;
     background:#1d1d1d; color:#2BDBC6;
     display:flex; align-items:center; justify-content:center;
-    font-size:15px; font-weight:900;
+    font-size:13px; font-weight:900;
+    font-family:'Jost','Montserrat',system-ui,sans-serif;
   }
+  #tr-faq-btn .faq-label {
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    font-weight:900; font-size:13px; line-height:1;
+    color:#1d1d1d; text-transform:uppercase;
+    font-family:'Jost','Montserrat',system-ui,sans-serif;
+  }
+  #tr-faq-btn .faq-label span { display:block; }
   #tr-faq-panel {
     position:fixed; top:0; right:0; height:100vh; width:420px; max-width:92vw;
     background:#fff; box-shadow:-8px 0 32px rgba(0,0,0,0.22);
@@ -2950,15 +2954,15 @@
   .tr-faq-footer { padding:14px 22px; background:#1d1d1d; color:#bbb; font-size:11px; line-height:1.6; }
   .tr-faq-footer a { color:#2BDBC6; text-decoration:none; font-weight:700; }
   @media (max-width:640px) {
-    #tr-faq-btn { bottom:88px; right:14px; padding:10px 14px; gap:8px; }
-    #tr-faq-btn .faq-label { font-size:13px; letter-spacing:0.14em; }
-    #tr-faq-btn .faq-mark { width:24px; height:24px; font-size:14px; }
+    #tr-faq-btn { width:40px; padding:8px 0; gap:8px; }
+    #tr-faq-btn .faq-label { font-size:12px; }
+    #tr-faq-btn .faq-mark { width:20px; height:20px; font-size:12px; }
     #tr-faq-panel { width:100vw; }
   }
 </style>
 <button id="tr-faq-btn" aria-label="Ouvrir la FAQ">
-  <span class="faq-label">FAQ</span>
   <span class="faq-mark">?</span>
+  <span class="faq-label"><span>F</span><span>A</span><span>Q</span></span>
 </button>
 <aside id="tr-faq-panel" aria-hidden="true">
   <div class="tr-faq-hd">
