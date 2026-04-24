@@ -2856,21 +2856,15 @@
   (function(){
     var sticky = document.getElementById('sticky');
     var fcards = document.querySelector('.fcards-section');
-    var trust = document.querySelector('.tr-trustgrid-wrap') || document.querySelector('.tr-trustgrid');
     if (!sticky || !fcards) return;
     var showY = 0;
-    var hideY = Infinity;
     function recompute(){
       var r = fcards.getBoundingClientRect();
       showY = window.scrollY + r.top;
-      if (trust){
-        var r2 = trust.getBoundingClientRect();
-        hideY = window.scrollY + r2.bottom;
-      }
     }
     function update(){
       var y = window.scrollY;
-      var show = y >= showY && y <= hideY;
+      var show = y >= showY;
       if (show){
         sticky.style.transform = 'translateY(0)';
         sticky.style.opacity = '1';
