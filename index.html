@@ -1244,7 +1244,7 @@
 </div>
 
 
-<!-- SÉPARATEUR SECTION WINGBOOST — BANDE ORANGE TICKER DÉFILANT -->
+<!-- SÉPARATEUR SECTION WINGBOOST -->
 <div style="height:40px;background:#fff;width:100vw;margin-left:calc(-50vw + 50%);"></div>
 <style>
   .wb-ticker-wrap {
@@ -1267,39 +1267,6 @@
     to { transform:translateX(-50%); }
   }
 </style>
-<div class="wb-ticker-wrap">
-  <div class="wb-ticker" id="wb-ticker">
-    <!-- Le contenu est dupliqué 2x par JS pour un loop parfait -->
-    <span>⚡ Le WingBoost — l'abonnement wing mensuel The Ridery</span>
-    <span class="bullet">●</span>
-    <span>🏄 Pack Gonflable dès 99 €/mois · Pack Rigide dès 139 €/mois</span>
-    <span class="bullet">●</span>
-    <span>📦 Foil + planche inclus dans chaque pack</span>
-    <span class="bullet">●</span>
-    <span>🎓 Cours wing à 99 € au lieu de 150 €</span>
-    <span class="bullet">●</span>
-    <span>🛡️ Assurance casse en option à 19 €/mois</span>
-    <span class="bullet">●</span>
-    <span>💸 -20 % sur tout le matos &amp; les accessoires pendant l'abo</span>
-    <span class="bullet">●</span>
-    <span>👥 -15 % sur les cours wing pour tes proches</span>
-    <span class="bullet">●</span>
-    <span>➕ Option wing foil à 59 €/mois · accessoires à 5 €/mois</span>
-    <span class="bullet">●</span>
-    <span>🤝 Formules 4 · 6 · 12 mois ou sans engagement</span>
-    <span class="bullet">●</span>
-    <span>📍 Retrait Paris · Marseille</span>
-    <span class="bullet">●</span>
-    <span>⭐ 4.9/5 sur Google · +200 avis vérifiés</span>
-    <span class="bullet">●</span>
-  </div>
-</div>
-<script>
-  (function(){
-    var t=document.getElementById('wb-ticker');
-    if(t){ t.innerHTML+=t.innerHTML; } // duplique pour loop fluide
-  })();
-</script>
 
 <!-- WINGBOOST — Analyseur + Promoteur (PCM) -->
 <section style="position:relative;overflow:hidden;font-family:'Jost',Montserrat,sans-serif;min-height:520px;display:flex;align-items:center;width:100vw;margin-left:calc(-50vw + 50%);">
@@ -1400,6 +1367,39 @@
   </div>
 </section>
 
+<!-- BANDE ORANGE TICKER DÉFILANT — sous section WingBoost -->
+<div class="wb-ticker-wrap">
+  <div class="wb-ticker" id="wb-ticker">
+    <span>⚡ Le WingBoost — l'abonnement wing mensuel The Ridery</span>
+    <span class="bullet">●</span>
+    <span>🏄 Pack Gonflable dès 99 €/mois · Pack Rigide dès 139 €/mois</span>
+    <span class="bullet">●</span>
+    <span>📦 Foil + planche inclus dans chaque pack</span>
+    <span class="bullet">●</span>
+    <span>🎓 Cours wing à 99 € au lieu de 150 €</span>
+    <span class="bullet">●</span>
+    <span>🛡️ Assurance casse en option à 19 €/mois</span>
+    <span class="bullet">●</span>
+    <span>💸 -20 % sur tout le matos &amp; les accessoires pendant l'abo</span>
+    <span class="bullet">●</span>
+    <span>👥 -15 % sur les cours wing pour tes proches</span>
+    <span class="bullet">●</span>
+    <span>➕ Option wing foil à 59 €/mois · accessoires à 5 €/mois</span>
+    <span class="bullet">●</span>
+    <span>🤝 Formules 4 · 6 · 12 mois ou sans engagement</span>
+    <span class="bullet">●</span>
+    <span>📍 Retrait Paris · Marseille</span>
+    <span class="bullet">●</span>
+    <span>⭐ 4.9/5 sur Google · +200 avis vérifiés</span>
+    <span class="bullet">●</span>
+  </div>
+</div>
+<script>
+  (function(){
+    var t=document.getElementById('wb-ticker');
+    if(t){ t.innerHTML+=t.innerHTML; }
+  })();
+</script>
 
 <div id="shopify-section-template--27040114671947__custom_title_bnBmjb" class="shopify-section"><section class="flex items-center justify-center px-10" style="padding-top:120px;padding-bottom:40px;">
   <h2 class="text-black font-jost font-bold uppercase text-2xl lg:text-4xl text-center">
