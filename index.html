@@ -168,19 +168,19 @@
     --window-height: 100vh;
   }
 
-  /* WingBoost hero responsive — tableau pricing vers la gauche */
+  /* WingBoost hero responsive — rapproche tableau pricing du bloc texte */
   @media (min-width: 769px) {
-    .wb-hero-grid > div:nth-child(2) {
-      transform: translateX(-38px) !important;
+    .wb-hero-grid {
+      grid-template-columns: auto auto !important;
+      justify-content: start !important;
+      gap: 32px !important;
     }
   }
   @media (max-width: 768px) {
     .wb-hero-grid {
       grid-template-columns: 1fr !important;
       gap: 24px !important;
-    }
-    .wb-hero-grid > div:nth-child(2) {
-      transform: none !important;
+      justify-content: stretch !important;
     }
   }
 
