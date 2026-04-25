@@ -1,0 +1,186 @@
+<!-- ============================================================ -->
+<!-- WINGBOOST — Bloc autonome pour Shopify (Liquid HTML perso) -->
+<!-- Colle TOUT ce bloc dans une section "Liquid personnalise" -->
+<!-- ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  /* ===== WingBoost hero responsive ===== */
+  @media (min-width: 769px) {
+    .wb-hero-grid {
+      grid-template-columns: auto auto !important;
+      justify-content: space-between !important;
+      gap: 40px !important;
+    }
+    .wb-hero-grid > div:nth-child(2) {
+      transform: translateX(8px) !important;
+    }
+  }
+  @media (max-width: 768px) {
+    .wb-hero-grid {
+      grid-template-columns: 1fr !important;
+      gap: 24px !important;
+      justify-content: stretch !important;
+    }
+  }
+
+  /* ===== Ticker orange ===== */
+  .wb-ticker-wrap {
+    background:#F97316;overflow:hidden;width:100vw;margin-left:calc(-50vw + 50%);
+    padding:14px 0;font-family:'Jost',Montserrat,sans-serif;position:relative;
+  }
+  .wb-ticker {
+    display:flex;gap:48px;align-items:center;white-space:nowrap;
+    animation:wbScroll 56s linear infinite;
+    width:max-content;
+  }
+  .wb-ticker:hover { animation-play-state:paused; }
+  .wb-ticker span {
+    font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.18em;color:#fff;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .wb-ticker .bullet { color:#1d1d1d;font-size:10px; }
+  @keyframes wbScroll {
+    from { transform:translateX(0); }
+    to { transform:translateX(-50%); }
+  }
+  @media (max-width:768px) {
+    .wb-ticker { animation-duration:36s !important; }
+    .wb-ticker span { font-size:11px !important; letter-spacing:0.1em !important; }
+  }
+</style>
+
+<!-- WINGBOOST — Analyseur + Promoteur (PCM) -->
+<section style="position:relative;overflow:hidden;font-family:'Jost',Montserrat,sans-serif;min-height:520px;display:flex;align-items:center;width:100vw;margin-left:calc(-50vw + 50%);">
+  <!-- Photo de fond pleine largeur -->
+  <div style="position:absolute;inset:0;background-image:url('https://theridery.com/cdn/shop/files/COMMUNAUTE_MARSEILLE_1_eb70731a-276a-4f6d-8f36-6ecd658cf9e4_2048x.jpg?v=1708969504');background-size:cover;background-position:center 30%;"></div>
+  <!-- Overlay degrade sombre -->
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.55) 60%,rgba(29,78,100,0.4) 100%);"></div>
+
+  <div class="wb-hero-grid" style="position:relative;width:100%;max-width:1280px;margin:0 auto;padding:56px 24px;display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:center;">
+
+    <!-- COLONNE GAUCHE -->
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#F97316;color:#fff;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;padding:4px 12px;margin-bottom:18px;">
+        ⚡ OFFRE EXCLUSIVE — THE RIDERY
+      </div>
+      <h2 style="font-weight:900;font-size:clamp(22px,3.4vw,42px);text-transform:uppercase;margin:0 0 16px;line-height:1.05;color:#fff;">
+        Le WingBoost,<br><span style="white-space:nowrap;">ton abonnement wing.</span><br><span style="color:#F97316;">Dès 99 €/mois.</span>
+      </h2>
+      <div style="font-weight:900;font-size:clamp(18px,2.4vw,26px);line-height:1.18;color:#fff;text-transform:uppercase;letter-spacing:0.01em;margin:0 0 18px;max-width:none;">
+        Le matos est <span style="color:#F97316;">avec toi</span>. Envie de changer ?<br><span style="color:#F97316;white-space:nowrap;">Tu passes au shop.</span><br>
+        <span style="background:#F97316;color:#fff;padding:2px 10px;display:inline-block;margin-top:6px;">Changement illimité.</span>
+      </div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.82);margin:0 0 24px;line-height:1.65;max-width:none;">
+        Foil + planche inclus chaque mois. Gonflable ou Rigide, engagement 4, 6 ou 12 mois.<br>Cours à 99 € (au lieu de 150 €), assurance casse en option, -20 % sur tout le matos pendant l'abo. <strong style="color:#fff;">Ton seul job : rider.</strong>
+      </p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:28px;">
+        <div style="display:flex;align-items:center;gap:10px;color:#fff;font-size:13px;font-weight:600;">
+          <span style="color:#F97316;font-size:16px;">✓</span> Pack Gonflable dès 99 €/mois · Pack Rigide dès 139 €/mois
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;color:#fff;font-size:13px;font-weight:600;">
+          <span style="color:#F97316;font-size:16px;">✓</span> Cours wing à 99 € au lieu de 150 € — tu apprends à voler
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;color:#fff;font-size:13px;font-weight:600;">
+          <span style="color:#F97316;font-size:16px;">✓</span> Assurance casse en option à 19 €/mois — ride sans stress
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;color:#fff;font-size:13px;font-weight:600;">
+          <span style="color:#F97316;font-size:16px;">✓</span> -20 % sur tout le matos &amp; les accessoires pendant l'abo
+        </div>
+      </div>
+      <a href="https://theridery.com/pages/abonnements-wingboost" style="display:inline-block;background:#F97316;color:#fff;text-decoration:none;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.1em;padding:14px 32px;">
+        JE COMPOSE MON PACK →
+      </a>
+    </div>
+
+    <!-- COLONNE DROITE -->
+    <div style="background:rgba(255,255,255,0.86);padding:28px 24px;backdrop-filter:blur(2px);">
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#F97316;margin-bottom:14px;display:flex;align-items:center;gap:6px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="#F97316"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        POURQUOI C'EST PLUS MALIN
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:16px;border:2px solid #f0f0f0;">
+        <div style="padding:14px 12px;background:#fafafa;border-right:1px solid #f0f0f0;">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#999;margin-bottom:8px;">Si tu achètes</div>
+          <div style="font-size:11px;color:#777;margin-bottom:4px;">Foil neuf</div>
+          <div style="font-size:13px;font-weight:700;color:#bbb;text-decoration:line-through;margin-bottom:8px;">1 500 €</div>
+          <div style="font-size:11px;color:#777;margin-bottom:4px;">Planche neuve</div>
+          <div style="font-size:13px;font-weight:700;color:#bbb;text-decoration:line-through;margin-bottom:8px;">750 €</div>
+          <div style="border-top:1px solid #e5e5e5;padding-top:8px;">
+            <div style="font-size:11px;color:#777;margin-bottom:2px;">À sortir maintenant</div>
+            <div style="font-size:22px;font-weight:900;color:#1d1d1d;">~2 250 €</div>
+            <div style="font-size:10px;color:#aaa;margin-top:2px;">matos figé · revente galère</div>
+          </div>
+        </div>
+        <div style="padding:14px 12px;background:#fff;">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#F97316;margin-bottom:8px;">WingBoost</div>
+          <div style="font-size:11px;color:#777;margin-bottom:4px;">Foil complet</div>
+          <div style="font-size:13px;font-weight:700;color:#29D3B7;margin-bottom:8px;">inclus ✓</div>
+          <div style="font-size:11px;color:#777;margin-bottom:4px;">Planche (gonflable ou rigide)</div>
+          <div style="font-size:13px;font-weight:700;color:#29D3B7;margin-bottom:8px;">incluse ✓</div>
+          <div style="border-top:1px solid #e5e5e5;padding-top:8px;">
+            <div style="font-size:11px;color:#777;margin-bottom:2px;">À partir de</div>
+            <div style="font-size:32px;font-weight:900;color:#F97316;line-height:1;">99 €<span style="font-size:14px;font-weight:700;">/mois</span></div>
+            <div style="font-size:10px;color:#F97316;margin-top:4px;font-weight:700;letter-spacing:0.04em;">Sans l'acheter · Tout inclus</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size:11px;color:#555;line-height:1.9;margin-bottom:14px;">
+        <span style="color:#29D3B7;font-weight:700;">✓</span> Cours wing à 99 € (au lieu de 150 €) &nbsp;·&nbsp; <span style="color:#29D3B7;font-weight:700;">✓</span> Assurance casse en option 19 €/mois
+      </div>
+
+      <div style="font-size:10px;color:#888;margin-bottom:10px;line-height:1.6;">
+        <span style="color:#29D3B7;font-weight:700;">✓</span> -20 % matos &amp; accessoires &nbsp;·&nbsp; <span style="color:#29D3B7;font-weight:700;">✓</span> -15 % cours pour tes proches &nbsp;·&nbsp; <span style="color:#29D3B7;font-weight:700;">✓</span> Sans frais cachés
+      </div>
+      <div style="background:#F97316;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.8);text-transform:uppercase;letter-spacing:0.06em;">Formules 4 · 6 · 12 mois · sans engagement</div>
+          <div style="font-size:13px;font-weight:800;color:#fff;">Dès 99 €/mois <span style="font-weight:600;opacity:0.9;">— change quand tu progresses</span></div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BANDE ORANGE TICKER -->
+<div class="wb-ticker-wrap">
+  <div class="wb-ticker" id="wb-ticker">
+    <span>⚡ Le WingBoost — l'abonnement wing mensuel The Ridery</span>
+    <span class="bullet">●</span>
+    <span>🏄 Pack Gonflable dès 99 €/mois · Pack Rigide dès 139 €/mois</span>
+    <span class="bullet">●</span>
+    <span>📦 Foil + planche inclus dans chaque pack</span>
+    <span class="bullet">●</span>
+    <span>🎓 Cours wing à 99 € au lieu de 150 €</span>
+    <span class="bullet">●</span>
+    <span>🛡️ Assurance casse en option à 19 €/mois</span>
+    <span class="bullet">●</span>
+    <span>💸 -20 % sur tout le matos &amp; les accessoires pendant l'abo</span>
+    <span class="bullet">●</span>
+    <span>🔄 Changement de matos illimité — tu progresses, on te suit</span>
+    <span class="bullet">●</span>
+    <span>👥 -15 % sur les cours wing pour tes proches</span>
+    <span class="bullet">●</span>
+    <span>➕ Option wing foil à 59 €/mois · accessoires à 5 €/mois</span>
+    <span class="bullet">●</span>
+    <span>🤝 Formules 4 · 6 · 12 mois ou sans engagement</span>
+    <span class="bullet">●</span>
+    <span>📍 Retrait Paris · Marseille</span>
+    <span class="bullet">●</span>
+    <span>⭐ 4.9/5 sur Google · +200 avis vérifiés</span>
+    <span class="bullet">●</span>
+  </div>
+</div>
+<script>
+  (function(){
+    var t=document.getElementById('wb-ticker');
+    if(t){ t.innerHTML+=t.innerHTML; }
+  })();
+</script>
