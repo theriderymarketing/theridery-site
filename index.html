@@ -168,22 +168,18 @@
     --window-height: 100vh;
   }
 
-  /* WingBoost hero responsive — shift right ~4cm desktop, gauche -0.5cm */
+  /* WingBoost hero responsive — tableau pricing vers la gauche */
   @media (min-width: 769px) {
-    .wb-hero-grid {
-      transform: translateX(190px) !important;
-    }
-    .wb-hero-grid > div:first-child {
-      transform: translateX(-19px) !important;
+    .wb-hero-grid > div:nth-child(2) {
+      transform: translateX(-38px) !important;
     }
   }
   @media (max-width: 768px) {
     .wb-hero-grid {
       grid-template-columns: 1fr !important;
       gap: 24px !important;
-      transform: none !important;
     }
-    .wb-hero-grid > div:first-child {
+    .wb-hero-grid > div:nth-child(2) {
       transform: none !important;
     }
   }
