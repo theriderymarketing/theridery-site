@@ -168,16 +168,22 @@
     --window-height: 100vh;
   }
 
-  /* WingBoost hero responsive — shift right ~4cm desktop */
+  /* WingBoost hero responsive — shift right ~4cm desktop, gauche -0.5cm */
   @media (min-width: 769px) {
     .wb-hero-grid {
       transform: translateX(190px) !important;
+    }
+    .wb-hero-grid > div:first-child {
+      transform: translateX(-19px) !important;
     }
   }
   @media (max-width: 768px) {
     .wb-hero-grid {
       grid-template-columns: 1fr !important;
       gap: 24px !important;
+      transform: none !important;
+    }
+    .wb-hero-grid > div:first-child {
       transform: none !important;
     }
   }
