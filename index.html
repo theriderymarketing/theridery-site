@@ -168,12 +168,15 @@
     --window-height: 100vh;
   }
 
-  /* WingBoost hero responsive — tableau pricing pousse a droite */
+  /* WingBoost hero responsive — tableau pricing pousse a droite +0.2cm */
   @media (min-width: 769px) {
     .wb-hero-grid {
       grid-template-columns: auto auto !important;
       justify-content: space-between !important;
       gap: 40px !important;
+    }
+    .wb-hero-grid > div:nth-child(2) {
+      transform: translateX(8px) !important;
     }
   }
   @media (max-width: 768px) {
