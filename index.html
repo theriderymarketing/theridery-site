@@ -386,6 +386,10 @@
 .nv-item { position:relative; display:flex; align-items:center; }
 .nv-lnk { display:flex; align-items:center; text-decoration:none; font-size:14px; font-weight:800; text-transform:uppercase; letter-spacing:0.03em; color:#000; white-space:nowrap; padding:10px 0; transition:color .2s; }
 .nv-lnk:hover, .nv-item:hover .nv-lnk { color:#29D3B7; }
+.nv-lnk.nv-lnk-orange { color:#F97316; }
+.nv-lnk.nv-lnk-orange:hover, .nv-item:hover .nv-lnk.nv-lnk-orange { color:#F97316; opacity:0.8; }
+.nv-lnk.nv-lnk-teal { color:#29D3B7; }
+.nv-lnk.nv-lnk-teal:hover, .nv-item:hover .nv-lnk.nv-lnk-teal { color:#29D3B7; opacity:0.8; }
 .nv-drop { display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%); background:#fff; border-top:2px solid #29D3B7; box-shadow:0 12px 32px rgba(0,0,0,0.1); z-index:9990; min-width:250px; }
 .nv-item:hover .nv-drop { display:block; }
 .nv-drop a { display:block; padding:10px 22px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#1d1d1d; text-decoration:none; white-space:nowrap; border-bottom:1px solid #f2f2f2; }
@@ -484,14 +488,26 @@
         </div>
       </div>
 
-      <!-- 2. Nos services -->
+      <!-- 2bis. Cours Wingfoil (top-level) -->
+      <div class="nv-item">
+        <a href="https://theridery.com/pages/ecoles-wingfoil-depart-marseille" class="nv-lnk nv-lnk-orange">
+          Cours Wingfoil
+        </a>
+      </div>
+
+      <!-- 2ter. Navigation surveillée (top-level) -->
+      <div class="nv-item">
+        <a href="https://theridery.com/pages/navigation-surveillee-marseille" class="nv-lnk nv-lnk-teal">
+          Navigation surveillée
+        </a>
+      </div>
+
+      <!-- 3. Nos services -->
       <div class="nv-item">
         <a href="https://theridery.com/pages/réparation" class="nv-lnk">
           Nos services
         </a>
         <div class="nv-drop">
-          <a href="https://theridery.com/pages/ecoles-wingfoil-depart-marseille" class="nv-kiteorange">Cours Wingfoil Marseille</a>
-          <a href="https://theridery.com/pages/navigation-surveillee-marseille" class="nv-wingblue">Navigation surveillée Marseille</a>
           <a href="https://theridery.com/pages/réparation">Réparation de matos</a>
           <a href="https://theridery.com/pages/reprise-de-materiel">Reprise de matériel</a>
           <a href="https://theridery.com/pages/les-evenements-sorties">Évènements &amp; sorties</a>
@@ -627,11 +643,12 @@
       </div>
     </details>
 
+    <a href="https://theridery.com/pages/ecoles-wingfoil-depart-marseille" class="mm-simple" style="color:#F97316;">Cours Wingfoil</a>
+    <a href="https://theridery.com/pages/navigation-surveillee-marseille" class="mm-simple" style="color:#29D3B7;">Navigation surveillée</a>
+
     <details>
       <summary>Nos services</summary>
       <div>
-        <a href="https://theridery.com/pages/ecoles-wingfoil-depart-marseille" class="nv-kiteorange">Cours Wingfoil Marseille</a>
-        <a href="https://theridery.com/pages/navigation-surveillee-marseille" class="nv-wingblue">Navigation surveillée Marseille</a>
         <a href="https://theridery.com/pages/réparation">Réparation de matos</a>
         <a href="https://theridery.com/pages/reprise-de-materiel">Reprise de matériel</a>
         <a href="https://theridery.com/pages/les-evenements-sorties">Évènements &amp; sorties</a>
