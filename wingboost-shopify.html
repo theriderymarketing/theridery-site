@@ -19,11 +19,73 @@
       transform: translateX(8px) !important;
     }
   }
+  /* Tablet */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .wb-hero-grid {
+      gap: 24px !important;
+      padding: 40px 20px !important;
+    }
+  }
+  /* Mobile (<= 768px) */
   @media (max-width: 768px) {
     .wb-hero-grid {
       grid-template-columns: 1fr !important;
-      gap: 24px !important;
+      gap: 20px !important;
       justify-content: stretch !important;
+      padding: 28px 14px !important;
+    }
+    .wb-hero-grid h2,
+    .wb-hero-grid h2 span,
+    .wb-hero-grid h2 br + span,
+    .wb-hero-grid > div span {
+      white-space: normal !important;
+      word-break: break-word !important;
+    }
+    .wb-hero-grid h2 {
+      font-size: 24px !important;
+      line-height: 1.1 !important;
+      margin-bottom: 12px !important;
+    }
+    .wb-hero-grid > div:first-child > div:nth-child(3) {
+      font-size: 15px !important;
+      line-height: 1.25 !important;
+      margin-bottom: 12px !important;
+    }
+    .wb-hero-grid > div:first-child > p {
+      font-size: 13px !important;
+      line-height: 1.55 !important;
+    }
+    .wb-hero-grid > div:first-child > a {
+      display: block !important;
+      text-align: center !important;
+      padding: 12px 20px !important;
+      font-size: 13px !important;
+    }
+    .wb-hero-grid > div:last-child {
+      padding: 18px 14px !important;
+    }
+    .wb-pricing-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .wb-pricing-grid > div:first-child {
+      border-right: none !important;
+      border-bottom: 1px solid #f0f0f0 !important;
+    }
+    .wb-price-big { font-size: 28px !important; }
+  }
+  /* Small mobile (<= 480px) */
+  @media (max-width: 480px) {
+    .wb-hero-grid {
+      padding: 22px 12px !important;
+    }
+    .wb-hero-grid h2 {
+      font-size: 21px !important;
+    }
+    .wb-hero-grid > div:first-child > div:nth-child(3) {
+      font-size: 14px !important;
+    }
+    .wb-hero-grid > div:first-child > p {
+      font-size: 12.5px !important;
     }
   }
 
@@ -103,7 +165,7 @@
         POURQUOI C'EST PLUS MALIN
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:16px;border:2px solid #f0f0f0;">
+      <div class="wb-pricing-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:16px;border:2px solid #f0f0f0;">
         <div style="padding:14px 12px;background:#fafafa;border-right:1px solid #f0f0f0;">
           <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#999;margin-bottom:8px;">Si tu achètes</div>
           <div style="font-size:11px;color:#777;margin-bottom:4px;">Foil neuf</div>
@@ -124,7 +186,7 @@
           <div style="font-size:13px;font-weight:700;color:#29D3B7;margin-bottom:8px;">incluse ✓</div>
           <div style="border-top:1px solid #e5e5e5;padding-top:8px;">
             <div style="font-size:11px;color:#777;margin-bottom:2px;">À partir de</div>
-            <div style="font-size:32px;font-weight:900;color:#F97316;line-height:1;">99 €<span style="font-size:14px;font-weight:700;">/mois</span></div>
+            <div class="wb-price-big" style="font-size:32px;font-weight:900;color:#F97316;line-height:1;">99 €<span style="font-size:14px;font-weight:700;">/mois</span></div>
             <div style="font-size:10px;color:#F97316;margin-top:4px;font-weight:700;letter-spacing:0.04em;">Sans l'acheter · Tout inclus</div>
           </div>
         </div>
