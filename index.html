@@ -301,12 +301,14 @@
      ============================================================ */
   @media (max-width:960px) {
     /* Header compact */
-    header > div { height:68px !important; padding:0 14px !important; }
-    header img[alt="The Ridery"] { height:42px !important; }
-    #sim-band { top:68px !important; padding:7px 12px !important; }
+    header > div { height:58px !important; padding:0 14px !important; }
+    header img[alt="The Ridery"] { height:38px !important; }
+    #sim-band { top:58px !important; padding:7px 12px !important; }
     #sim-band span { font-size:11px !important; }
     /* Nav desktop masquée */
     nav#nav-desktop, .trh-nav { display:none !important; }
+    /* WingBoost CTA hidden on mobile */
+    .nv-cta-wb { display:none !important; }
     /* Hamburger dispo */
     .mobile-burger { display:flex !important; }
     /* fcards : 2 colonnes */
@@ -355,9 +357,9 @@
   }
 
   @media (max-width:520px) {
-    header img[alt="The Ridery"] { height:36px !important; }
-    header > div { height:58px !important; padding:0 12px !important; }
-    #sim-band { top:58px !important; }
+    header img[alt="The Ridery"] { height:32px !important; }
+    header > div { height:50px !important; padding:0 12px !important; }
+    #sim-band { top:50px !important; }
     .fcards-section { grid-template-columns:1fr !important; }
     .fcard { height:min(42vh,280px) !important; }
     .wb-packs { padding:0 8px !important; }
@@ -384,25 +386,32 @@
 .trh-actions a { color:#1d1d1d; display:flex; align-items:center; justify-content:center; transition:color .2s; }
 .trh-actions a:hover { color:#29D3B7; }
 .nv-item { position:relative; display:flex; align-items:center; }
-.nv-lnk { display:flex; align-items:center; text-decoration:none; font-size:14px; font-weight:800; text-transform:uppercase; letter-spacing:0.03em; color:#000; white-space:nowrap; padding:10px 0; transition:color .2s; }
+.nv-lnk { display:flex; align-items:center; gap:4px; text-decoration:none; font-size:14px; font-weight:800; text-transform:uppercase; letter-spacing:0.03em; color:#000; white-space:nowrap; padding:10px 0; transition:color .2s; }
 .nv-lnk:hover, .nv-item:hover .nv-lnk { color:#29D3B7; }
+.nv-lnk .nv-chev { display:inline-block; font-size:9px; transition:transform .25s ease; margin-left:2px; }
+.nv-item:hover .nv-lnk .nv-chev { transform:rotate(180deg); }
 .nv-lnk.nv-lnk-orange { color:#F97316; }
 .nv-lnk.nv-lnk-orange:hover, .nv-item:hover .nv-lnk.nv-lnk-orange { color:#F97316; opacity:0.8; }
 .nv-lnk.nv-lnk-teal { color:#29D3B7; }
 .nv-lnk.nv-lnk-teal:hover, .nv-item:hover .nv-lnk.nv-lnk-teal { color:#29D3B7; opacity:0.8; }
-.nv-drop { display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%); background:#fff; border-top:2px solid #29D3B7; box-shadow:0 12px 32px rgba(0,0,0,0.1); z-index:9990; min-width:250px; }
-.nv-item:hover .nv-drop { display:block; }
-.nv-drop a { display:block; padding:10px 22px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#1d1d1d; text-decoration:none; white-space:nowrap; border-bottom:1px solid #f2f2f2; }
+/* WingBoost CTA button in nav */
+.nv-cta-wb { display:inline-flex; align-items:center; gap:6px; background:linear-gradient(135deg,#F97316,#fb923c); color:#fff !important; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; text-decoration:none; padding:8px 18px; border-radius:6px; white-space:nowrap; transition:all .25s ease; box-shadow:0 2px 10px rgba(249,115,22,0.3); }
+.nv-cta-wb:hover { background:linear-gradient(135deg,#ea580c,#F97316); transform:translateY(-1px); box-shadow:0 4px 16px rgba(249,115,22,0.4); color:#fff !important; }
+.nv-cta-wb svg { flex-shrink:0; }
+/* Animated dropdowns */
+.nv-drop { visibility:hidden; opacity:0; position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(8px); background:#fff; border-top:2px solid #29D3B7; box-shadow:0 12px 32px rgba(0,0,0,0.1); z-index:9990; min-width:250px; transition:opacity .22s ease, transform .22s ease, visibility .22s; border-radius:0 0 8px 8px; }
+.nv-item:hover .nv-drop { visibility:visible; opacity:1; transform:translateX(-50%) translateY(0); }
+.nv-drop a { display:block; padding:10px 22px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#1d1d1d; text-decoration:none; white-space:nowrap; border-bottom:1px solid #f2f2f2; transition:background .15s, color .15s, padding-left .15s; }
 .nv-drop a:last-child { border-bottom:none; }
-.nv-drop a:hover { background:#f7f7f7; color:#29D3B7; }
+.nv-drop a:hover { background:#f7f7f7; color:#29D3B7; padding-left:26px; }
 .nv-drop a.nv-wing { color:#F97316; }
 .nv-drop a.nv-wingblue { color:#29D3B7; }
 .nv-drop a.nv-kiteorange { color:#F97316; }
-.nv-mega { display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%); background:#fff; border-top:2px solid #29D3B7; box-shadow:0 12px 32px rgba(0,0,0,0.1); z-index:9990; padding:22px 26px; grid-template-columns:repeat(4,1fr); gap:0 32px; min-width:820px; }
-.nv-item:hover .nv-mega { display:grid; }
+.nv-mega { visibility:hidden; opacity:0; position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(8px); background:#fff; border-top:2px solid #29D3B7; box-shadow:0 12px 32px rgba(0,0,0,0.1); z-index:9990; padding:22px 26px; grid-template-columns:repeat(4,1fr); gap:0 32px; min-width:820px; transition:opacity .22s ease, transform .22s ease, visibility .22s; border-radius:0 0 8px 8px; display:grid; }
+.nv-item:hover .nv-mega { visibility:visible; opacity:1; transform:translateX(-50%) translateY(0); }
 .nv-mcol-title { font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:0.14em; color:#999; margin-bottom:8px; padding-bottom:5px; border-bottom:1px solid #eee; }
-.nv-mcol a { display:block; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; color:#1d1d1d; text-decoration:none; padding:4px 0; white-space:nowrap; }
-.nv-mcol a:hover { color:#29D3B7; }
+.nv-mcol a { display:block; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; color:#1d1d1d; text-decoration:none; padding:4px 0; white-space:nowrap; transition:color .15s, padding-left .15s; }
+.nv-mcol a:hover { color:#29D3B7; padding-left:4px; }
 .nv-mcol a.nv-see { color:#29D3B7; font-weight:800; margin-top:6px; }
 .nv-mtitle { margin-top:10px; }
 @media (max-width:1200px) {
@@ -417,10 +426,10 @@
 
 <!-- NAV HEADER -->
 <header style="position:sticky;top:0;z-index:9999;background:#fff;border-bottom:1px solid #e8e8e8;font-family:'Jost',Montserrat,sans-serif;">
-  <div style="width:100%;padding:0 28px 0 22px;display:flex;align-items:center;justify-content:space-between;height:92px;">
+  <div style="width:100%;padding:0 28px 0 22px;display:flex;align-items:center;justify-content:space-between;height:72px;">
     <!-- Logo -->
     <a href="https://theridery.com" style="flex-shrink:0;margin-right:8px;">
-      <img src="logo-the-ridery-v2.png" alt="The Ridery" style="height:64px;display:block;" onerror="this.onerror=null;this.src='logo-the-ridery.png';">
+      <img src="logo-the-ridery-v2.png" alt="The Ridery" style="height:50px;display:block;" onerror="this.onerror=null;this.src='logo-the-ridery.png';">
       <span style="display:none;font-family:'Jost',sans-serif;font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:0.06em;color:#1d1d1d;">The Ridery</span>
     </a>
     <!-- Nav links (desktop) -->
@@ -429,7 +438,7 @@
       <!-- 1. JE LOUE -->
       <div class="nv-item">
         <a href="https://theridery.com/pages/location-choix-ville" class="nv-lnk">
-          Je loue
+          Je loue <span class="nv-chev">▾</span>
         </a>
         <div class="nv-drop">
           <a href="https://theridery.com/pages/location-choix-ville">Location à la carte</a>
@@ -440,7 +449,7 @@
       <!-- 2. J'ACHÈTE (mega-menu wing+kite+bons plans+reprise) -->
       <div class="nv-item">
         <a href="https://theridery.com/collections/all" class="nv-lnk">
-          J'achète
+          J'achète <span class="nv-chev">▾</span>
         </a>
         <div class="nv-mega">
           <div class="nv-mcol">
@@ -488,10 +497,10 @@
         </div>
       </div>
 
-      <!-- 2bis. Cours Wingfoil + Navigation surveillée (mega-menu 2 colonnes) -->
+      <!-- 3. Cours Wingfoil + Navigation surveillée (mega-menu 2 colonnes) -->
       <div class="nv-item">
         <a href="https://theridery.com/pages/ecoles-wingfoil-depart-marseille" class="nv-lnk">
-          Cours Wingfoil
+          Cours Wingfoil <span class="nv-chev">▾</span>
         </a>
         <div class="nv-mega" style="grid-template-columns:repeat(2,1fr);min-width:560px;">
           <div class="nv-mcol">
@@ -507,58 +516,75 @@
         </div>
       </div>
 
-      <!-- 3. Nos services -->
-      <div class="nv-item">
-        <a href="https://theridery.com/pages/réparation" class="nv-lnk">
-          Nos services
-        </a>
-        <div class="nv-drop">
-          <a href="https://theridery.com/pages/réparation">Réparation de matos</a>
-          <a href="https://theridery.com/pages/reprise-de-materiel" style="color:#F97316;">Reprise de matériel</a>
-          <a href="https://theridery.com/pages/les-evenements-sorties">Évènements &amp; sorties</a>
-        </div>
-      </div>
-
-      <!-- 3. Conseils et spots -->
+      <!-- 4. Conseils et spots — MEGA MENU 3 colonnes -->
       <div class="nv-item">
         <a href="https://theridery.com/pages/guide-des-spots" class="nv-lnk">
-          Conseils et spots
+          Conseils <span class="nv-chev">▾</span>
         </a>
-        <div class="nv-drop">
-          <a href="https://theridery.com/pages/guide-des-spots">Guide des spots</a>
-          <a href="https://theridery.com/pages/comment-lire-les-previsions-de-vent-sur-internet">Comment lire les prévisions de vent ?</a>
-          <a href="https://theridery.com/pages/ecole-wingfoil-marseille">Apprendre le Wingfoil</a>
-          <a href="https://theridery.com/pages/choisir-son-materiel-de-wingfoil">Le guide pour choisir son matériel de Wingfoil</a>
-          <a href="https://theridery.com/pages/choisir-son-materiel-de-kitesurf">Le guide pour choisir son matériel de Kitesurf</a>
-          <a href="https://theridery.com/pages/choisir-sa-combinaison">Le guide pour choisir sa combinaison</a>
-          <a href="https://theridery.com/pages/choisir-tes-vis-en-wingfoil">Choisir tes vis en Wingfoil</a>
-          <a href="https://theridery.com/pages/simulateur-choix-materiel-wingfoil" class="nv-wingblue">Simulateur choix matériel Wingfoil</a>
-          <a href="https://theridery.com/pages/simulateur-choix-materiel-kitesurf" class="nv-kiteorange">Simulateur choix matériel Kitesurf</a>
-          <a href="https://theridery.com/blogs/news">Blog &amp; actualités</a>
+        <div class="nv-mega" style="grid-template-columns:repeat(3,1fr);min-width:700px;">
+          <div class="nv-mcol">
+            <div class="nv-mcol-title">Guides Matériel</div>
+            <a href="https://theridery.com/pages/choisir-son-materiel-de-wingfoil">Choisir son matériel Wingfoil</a>
+            <a href="https://theridery.com/pages/choisir-son-materiel-de-kitesurf">Choisir son matériel Kitesurf</a>
+            <a href="https://theridery.com/pages/choisir-sa-combinaison">Choisir sa combinaison</a>
+            <a href="https://theridery.com/pages/choisir-tes-vis-en-wingfoil">Choisir ses vis Wingfoil</a>
+            <a href="https://theridery.com/pages/ecole-wingfoil-marseille">Apprendre le Wingfoil</a>
+          </div>
+          <div class="nv-mcol">
+            <div class="nv-mcol-title" style="color:#29D3B7;">Simulateurs &amp; Spots</div>
+            <a href="https://theridery.com/pages/simulateur-choix-materiel-wingfoil" class="nv-wingblue">Simulateur Wingfoil</a>
+            <a href="https://theridery.com/pages/simulateur-choix-materiel-kitesurf" class="nv-kiteorange">Simulateur Kitesurf</a>
+            <a href="https://theridery.com/pages/guide-des-spots">Guide des spots</a>
+            <a href="https://theridery.com/pages/comment-lire-les-previsions-de-vent-sur-internet">Lire les prévisions de vent</a>
+          </div>
+          <div class="nv-mcol">
+            <div class="nv-mcol-title">Blog &amp; Actualités</div>
+            <a href="https://theridery.com/blogs/news">Blog &amp; actualités</a>
+            <a href="https://theridery.com/blogs/news" class="nv-see">Lire le blog →</a>
+          </div>
         </div>
       </div>
 
-      <!-- 5. Nous découvrir -->
+      <!-- 5. À propos (fusion Nos services + Nous découvrir) -->
       <div class="nv-item">
         <a href="https://theridery.com/pages/qui-sommes-nous" class="nv-lnk">
-          Nous découvrir
+          À propos <span class="nv-chev">▾</span>
         </a>
-        <div class="nv-drop">
-          <a href="https://theridery.com/pages/notre-equipe-experts">Notre équipe d'experts</a>
-          <a href="https://theridery.com/pages/nos-magasins">Nos shops &amp; points de location</a>
-          <a href="https://theridery.com/pages/qui-sommes-nous">Nos valeurs &amp; notre histoire</a>
-          <a href="https://theridery.com/pages/nos-partenaires">Nos partenaires</a>
-          <a href="https://theridery.com/pages/rejoindre-equipe">Rejoindre l'équipe</a>
+        <div class="nv-mega" style="grid-template-columns:repeat(2,1fr);min-width:480px;">
+          <div class="nv-mcol">
+            <div class="nv-mcol-title">Nos Services</div>
+            <a href="https://theridery.com/pages/réparation">Réparation de matos</a>
+            <a href="https://theridery.com/pages/reprise-de-materiel" style="color:#F97316;">Reprise de matériel</a>
+            <a href="https://theridery.com/pages/les-evenements-sorties">Évènements &amp; sorties</a>
+          </div>
+          <div class="nv-mcol">
+            <div class="nv-mcol-title">Nous Découvrir</div>
+            <a href="https://theridery.com/pages/notre-equipe-experts">Notre équipe d'experts</a>
+            <a href="https://theridery.com/pages/nos-magasins">Nos shops &amp; points de location</a>
+            <a href="https://theridery.com/pages/qui-sommes-nous">Nos valeurs &amp; notre histoire</a>
+            <a href="https://theridery.com/pages/nos-partenaires">Nos partenaires</a>
+            <a href="https://theridery.com/pages/rejoindre-equipe">Rejoindre l'équipe</a>
+          </div>
         </div>
       </div>
+
+      <!-- 6. WingBoost CTA -->
+      <a href="https://theridery.com/pages/abonnements-wingboost" class="nv-cta-wb">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        WingBoost
+      </a>
 
     </nav>
     <!-- Actions -->
     <div style="display:flex;align-items:center;gap:14px;flex-shrink:0;">
-      <a href="https://theridery.com/account" style="color:#1d1d1d;text-decoration:none;">
+      <!-- Search icon -->
+      <a href="https://theridery.com/search" style="color:#1d1d1d;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#29D3B7'" onmouseout="this.style.color='#1d1d1d'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </a>
+      <a href="https://theridery.com/account" style="color:#1d1d1d;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#29D3B7'" onmouseout="this.style.color='#1d1d1d'">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       </a>
-      <a href="https://theridery.com/cart" style="color:#1d1d1d;text-decoration:none;position:relative;">
+      <a href="https://theridery.com/cart" style="color:#1d1d1d;text-decoration:none;position:relative;transition:color .2s;" onmouseover="this.style.color='#29D3B7'" onmouseout="this.style.color='#1d1d1d'">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
       </a>
       <button type="button" class="mobile-burger" aria-label="Menu" onclick="document.getElementById('mobile-menu').classList.toggle('on');" style="display:none;background:none;border:none;cursor:pointer;padding:6px;margin-left:4px;">
@@ -661,33 +687,32 @@
     </details>
 
     <details>
-      <summary>Nos services</summary>
+      <summary>Conseils</summary>
       <div>
-        <a href="https://theridery.com/pages/réparation">Réparation de matos</a>
-        <a href="https://theridery.com/pages/reprise-de-materiel" style="color:#F97316;">Reprise de matériel</a>
-        <a href="https://theridery.com/pages/les-evenements-sorties">Évènements &amp; sorties</a>
-      </div>
-    </details>
-
-    <details>
-      <summary>Conseils et spots</summary>
-      <div>
-        <a href="https://theridery.com/pages/guide-des-spots">Guide des spots</a>
-        <a href="https://theridery.com/pages/comment-lire-les-previsions-de-vent-sur-internet">Comment lire les prévisions de vent ?</a>
+        <div style="font-size:10px;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#999;margin:6px 0 4px;">Guides Matériel</div>
+        <a href="https://theridery.com/pages/choisir-son-materiel-de-wingfoil">Choisir son matériel Wingfoil</a>
+        <a href="https://theridery.com/pages/choisir-son-materiel-de-kitesurf">Choisir son matériel Kitesurf</a>
+        <a href="https://theridery.com/pages/choisir-sa-combinaison">Choisir sa combinaison</a>
+        <a href="https://theridery.com/pages/choisir-tes-vis-en-wingfoil">Choisir ses vis Wingfoil</a>
         <a href="https://theridery.com/pages/ecole-wingfoil-marseille">Apprendre le Wingfoil</a>
-        <a href="https://theridery.com/pages/choisir-son-materiel-de-wingfoil">Le guide pour choisir son matériel de Wingfoil</a>
-        <a href="https://theridery.com/pages/choisir-son-materiel-de-kitesurf">Le guide pour choisir son matériel de Kitesurf</a>
-        <a href="https://theridery.com/pages/choisir-sa-combinaison">Le guide pour choisir sa combinaison</a>
-        <a href="https://theridery.com/pages/choisir-tes-vis-en-wingfoil">Choisir tes vis en Wingfoil</a>
-        <a href="https://theridery.com/pages/simulateur-choix-materiel-wingfoil" class="nv-wingblue">Simulateur choix matériel Wingfoil</a>
-        <a href="https://theridery.com/pages/simulateur-choix-materiel-kitesurf" class="nv-kiteorange">Simulateur choix matériel Kitesurf</a>
+        <div style="font-size:10px;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#29D3B7;margin:14px 0 4px;">Simulateurs & Spots</div>
+        <a href="https://theridery.com/pages/simulateur-choix-materiel-wingfoil" class="nv-wingblue">Simulateur Wingfoil</a>
+        <a href="https://theridery.com/pages/simulateur-choix-materiel-kitesurf" class="nv-kiteorange">Simulateur Kitesurf</a>
+        <a href="https://theridery.com/pages/guide-des-spots">Guide des spots</a>
+        <a href="https://theridery.com/pages/comment-lire-les-previsions-de-vent-sur-internet">Lire les prévisions de vent</a>
+        <div style="font-size:10px;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#999;margin:14px 0 4px;">Blog</div>
         <a href="https://theridery.com/blogs/news">Blog &amp; actualités</a>
       </div>
     </details>
 
     <details>
-      <summary>Nous découvrir</summary>
+      <summary>À propos</summary>
       <div>
+        <div style="font-size:10px;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#999;margin:6px 0 4px;">Nos Services</div>
+        <a href="https://theridery.com/pages/réparation">Réparation de matos</a>
+        <a href="https://theridery.com/pages/reprise-de-materiel" style="color:#F97316;">Reprise de matériel</a>
+        <a href="https://theridery.com/pages/les-evenements-sorties">Évènements &amp; sorties</a>
+        <div style="font-size:10px;font-weight:900;letter-spacing:0.14em;text-transform:uppercase;color:#999;margin:14px 0 4px;">Nous Découvrir</div>
         <a href="https://theridery.com/pages/notre-equipe-experts">Notre équipe d'experts</a>
         <a href="https://theridery.com/pages/nos-magasins">Nos shops &amp; points de location</a>
         <a href="https://theridery.com/pages/qui-sommes-nous">Nos valeurs &amp; notre histoire</a>
@@ -708,7 +733,7 @@
 <style>
   @media (max-width:1024px){ #sim-band{display:none !important;} }
 </style>
-<div id="sim-band" style="background:#29D3B7;color:#fff;font-family:'Jost',Montserrat,sans-serif;padding:9px 20px;position:sticky;top:92px;z-index:9998;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+<div id="sim-band" style="background:#29D3B7;color:#fff;font-family:'Jost',Montserrat,sans-serif;padding:9px 20px;position:sticky;top:72px;z-index:9998;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
   <span style="font-weight:600;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;">Tu sais pas quel matos choisir ?</span>
   <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
     <a href="https://theridery.com/pages/simulateur-choix-materiel-wingfoil" style="background:#fff;color:#29D3B7;text-decoration:none;font-weight:800;font-size:11px;padding:4px 14px;border-radius:2px;text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;">Mon Set Up Wingfoil &rarr;</a>
